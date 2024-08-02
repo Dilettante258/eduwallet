@@ -4,10 +4,12 @@
   },
   "build": {
     "development": {
+      "bun": "1.1.13",
       "developmentClient": true,
       "distribution": "internal"
     },
     "preview": {
+      "bun": "1.1.13",
       "distribution": "internal"
     },
     "production": {}
