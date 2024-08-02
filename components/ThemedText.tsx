@@ -5,13 +5,15 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
+  size?: 'lg' | 'md' | 'sm' | 'xs' | 'xxs';
+  type?: 'default' | 'bold' | 'medium' | 'subtitle' | 'link' | 'BrandName' | 'error';
 };
 
 export function ThemedText({
   style,
   lightColor,
   darkColor,
+  size = 'md',
   type = 'default',
   ...rest
 }: ThemedTextProps) {
@@ -21,11 +23,8 @@ export function ThemedText({
     <Text
       style={[
         { color },
-        type === 'default' ? styles.default : undefined,
-        type === 'title' ? styles.title : undefined,
-        type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
-        type === 'subtitle' ? styles.subtitle : undefined,
-        type === 'link' ? styles.link : undefined,
+        styles[size],
+        styles[type],
         style,
       ]}
       {...rest}
@@ -34,27 +33,54 @@ export function ThemedText({
 }
 
 const styles = StyleSheet.create({
+  lg: {
+    fontSize: 18,
+    lineHeight: 27,
+  },
+  md: {
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  sm: {
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  xs: {
+    fontSize: 12,
+    lineHeight: 18,
+  },
+  xxs: {
+    fontSize: 10,
+    lineHeight: 15,
+  },
   default: {
-    fontSize: 16,
-    lineHeight: 24,
+    fontFamily: 'PoppinsRegular',
   },
-  defaultSemiBold: {
-    fontSize: 16,
-    lineHeight: 24,
-    fontWeight: '600',
+  medium: {
+    fontFamily: 'PoppinsMedium',
+    fontWeight: '500',
   },
-  title: {
-    fontSize: 32,
+  bold: {
+    fontFamily: 'PoppinsBold',
     fontWeight: 'bold',
-    lineHeight: 32,
   },
   subtitle: {
     fontSize: 20,
+    fontFamily: 'PoppinsBold',
     fontWeight: 'bold',
   },
   link: {
-    lineHeight: 30,
-    fontSize: 16,
-    color: '#0a7ea4',
+    fontFamily: 'PoppinsRegular',
+    color: '#2AE9B9',
+  },
+  error: {
+    fontFamily: 'PoppinsRegular',
+    color: '#FB7945',
+  },
+  BrandName: {
+    fontSize: 28,
+    lineHeight: 42,
+    fontFamily: 'PoppinsMedium',
+    fontWeight: '500',
   },
 });

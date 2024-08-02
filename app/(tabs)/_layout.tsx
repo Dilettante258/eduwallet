@@ -11,6 +11,15 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
+        tabBarStyle: {
+          marginHorizontal: 20,
+          borderRadius: 100,
+          height: 76,
+          paddingVertical: 16,
+          paddingHorizontal: 20,
+          backgroundColor: "white",
+          justifyContent: "space-between",
+        },
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
       }}>
@@ -29,6 +38,15 @@ export default function TabLayout() {
           title: 'Explore',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="sign-up/index"
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'person' : 'person-outline'} color={color} />
           ),
         }}
       />

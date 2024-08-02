@@ -12,3 +12,13 @@ export function ThemedView({ style, lightColor, darkColor, ...otherProps }: Them
 
   return <View style={[{ backgroundColor }, style]} {...otherProps} />;
 }
+
+
+
+export function FlexView({ style, ...otherProps }: ThemedViewProps) {
+  return <View style={[{
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  }, style]} {...otherProps} />;
+}
