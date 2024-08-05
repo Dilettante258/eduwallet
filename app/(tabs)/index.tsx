@@ -47,7 +47,7 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
       </ThemedView>
-      <Link href={"/sign-up"}><ThemedText>Sign up</ThemedText></Link>
+      <Link href={"/sign-up/step1"}><ThemedText>Sign up</ThemedText></Link>
     </ParallaxScrollView>
   );
 }

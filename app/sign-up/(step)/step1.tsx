@@ -5,7 +5,7 @@ import {ThemedText} from "@/components/ThemedText";
 import {BrandBlackEdge, LeftArrow} from "@/components/svg";
 import { Link } from 'expo-router';
 import {FlexView} from "@/components/ThemedView";
-import Input from "@/components/input";
+import {SecureInput} from "@/components/input";
 import Checkbox from "@/components/checkbox";
 import { ProgressBar }from "@/app/sign-up/component/ProgressBar";
 import FormItem from "@/components/FormItem";
@@ -57,15 +57,16 @@ const Step1 = () => {
           <BrandBlackEdge length={32}/>
           <ThemedText>EduWallet</ThemedText>
         </FlexView>
-        <Link href="/sign-up" >
-          <IconButton>
-            <LeftArrow />
-          </IconButton>
+        <Link href="/sign-up" asChild>
+          <View>
+            <IconButton>
+              <LeftArrow />
+              <ThemedText>{' '}</ThemedText>
+            </IconButton>
+          </View>
         </Link>
       </View>
-      <View style={{width: 350}}>
-        <ProgressBar level={level} />
-      </View>
+      <ProgressBar level={level} />
       <View style={styles.formContainer}>
         <ThemedText size="lg">
           Create Password
@@ -84,10 +85,9 @@ const Step1 = () => {
             }
           }}
           render={({ field: { onChange, value } }) => (
-            <Input
+            <SecureInput
               value={value}
               onChangeText={onChange}
-              secureTextEntry
               placeholder="Enter a password for your wallet"
             />
           )}
@@ -105,11 +105,10 @@ const Step1 = () => {
           }}}
           errors={errors.password}
           render={({ field: { onChange, value } }) => (
-            <Input
+            <SecureInput
               value={value}
               onChangeText={onChange}
               placeholder="Enter the password again"
-              secureTextEntry
               enterKeyHint="next"
             />
           )}
@@ -126,8 +125,10 @@ const Step1 = () => {
               </ThemedText>
             </Link>
           </Checkbox>
-          <Link href="/sign-up/step2">
-            <Button size="lg" variant="solid" onPress={handleSubmit(onSubmit)}>
+          <Link href="/sign-up/step2" style={{width: "100%"}} asChild>
+            <Button size="lg" variant="solid"
+                    // onPress={handleSubmit(onSubmit)}
+                    onPress={onSubmit}>
               Create
             </Button>
           </Link>
@@ -156,10 +157,6 @@ const styles = StyleSheet.create(
       gap: 20,
       width: "100%",
     },
-    title: {
-      fontSize: 20,
-      fontWeight: "400"
-    }
   }
 )
 

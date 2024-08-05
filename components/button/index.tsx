@@ -1,6 +1,6 @@
-import {Pressable, PressableProps, StyleProp, StyleSheet, Text, ViewStyle} from "react-native";
+import {Pressable, PressableProps, StyleProp, StyleSheet, ViewStyle} from "react-native";
 import {Colors} from "@/constants/Colors";
-import React, {useState} from "react";
+import React from "react";
 import {ThemedText} from "@/components/ThemedText";
 
 
@@ -12,9 +12,9 @@ type ButtonProps = PressableProps & {
   style?: StyleProp<ViewStyle>
 }
 
+type PressableRef = React.ElementRef<typeof Pressable>;
 
-
-const Button = (
+const Button = React.forwardRef<PressableRef, ButtonProps>((
   {style,
     disabled,
     onPress,
@@ -22,9 +22,10 @@ const Button = (
     variant = 'solid',
     children,
     ...rest
-  }: ButtonProps) => {
+  }: ButtonProps, ref) => {
   return (
     <Pressable
+      ref={ref}
       onPress={disabled ? undefined : onPress}
       style={[
         styles.basic,
@@ -40,19 +41,15 @@ const Button = (
       </ThemedText>
     </Pressable>
   )
-}
+})
 
 
-const IconButton = ({disabled, onPress , size = 'lg', variant = 'solid', children, ...rest}: ButtonProps) => {
+const IconButton = React.forwardRef<PressableRef, ButtonProps>(({disabled, onPress, size = 'lg', variant = 'solid', children, ...rest}: ButtonProps,ref) => {
   return (
     <Pressable
+      ref={ref}
       onPress={disabled ? undefined : onPress}
       style={({ pressed }) => [
-        {
-          backgroundColor: pressed
-            ? 'rgb(210, 230, 255)'
-            : Colors.dark.primary
-        },
         styles.basic,
         IconButtonStyles[size],
         IconButtonStyles[variant]
@@ -62,7 +59,7 @@ const IconButton = ({disabled, onPress , size = 'lg', variant = 'solid', childre
       {children}
       </Pressable>
   )
-}
+})
 
 
 

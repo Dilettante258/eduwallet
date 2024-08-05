@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View} from 'react-native';
-import Animated, { useSharedValue } from 'react-native-reanimated';
+import { StyleSheet, View } from 'react-native';
+import Animated, {useAnimatedStyle, useSharedValue} from 'react-native-reanimated';
 import {Colors} from "@/constants/Colors";
 import {ThemedText} from "@/components/ThemedText";
 import { withSpring } from 'react-native-reanimated';
@@ -12,6 +12,21 @@ type ProgressBarProps = {
 export const ProgressBar = (
   {level}: ProgressBarProps) => {
   const width = useSharedValue<number>(0);
+
+  const level2 = useAnimatedStyle(() => {
+    return {
+      backgroundColor: level>=2 ? Colors.dark.primary : Colors.dark.bgGray,
+    };
+  });
+
+  const level3 = useAnimatedStyle(() => {
+    return {
+      backgroundColor: level>=3 ? Colors.dark.primary : Colors.dark.bgGray,
+    };
+  });
+
+
+
 
   const springConfig = {
     duration: 1500,
@@ -27,10 +42,10 @@ export const ProgressBar = (
       <View style={styles.node}>
         <ThemedText size='xs' type="bold" style={styles.text}>1</ThemedText>
       </View>
-      <Animated.View style={styles.node}>
+      <Animated.View style={[styles.node, level2]}>
         <ThemedText size='xs' type="bold" style={styles.text}>2</ThemedText>
       </Animated.View>
-      <Animated.View style={styles.node}>
+      <Animated.View style={[styles.node, level3]}>
         <ThemedText size='xs' type="bold" style={styles.text}>3</ThemedText>
       </Animated.View>
       <Animated.View style={{ ...styles.bar, width, backgroundColor: "#080FA5",zIndex: 5 }} />
@@ -43,18 +58,18 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
-    flex: 1,
     justifyContent: 'space-between',
     position: 'relative',
-    overflow: 'hidden',
+    width: 350,
+    height: 23,
   },
   bar: {
+    borderRadius: 1,
     height: 3,
     width: 327,
     backgroundColor: Colors.dark.bgGray,
-    borderRadius: 100,
     position: 'absolute',
-    top: "50%",
+    top: 10,
     left: 11.5,
     zIndex: 1,
   },
@@ -70,7 +85,7 @@ const styles = StyleSheet.create({
     shadowColor: '#00000040',
   },
   text: {
-    lineHeight: 12,
+    lineHeight: 17,
     zIndex: 15,
     textAlign: 'center',
     marginVertical: "auto",

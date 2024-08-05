@@ -16,16 +16,16 @@ const Sign = () => {
         <ThemedText size="lg">Welcome</ThemedText>
         <ThemedText style={{
           textAlign: "center",
-        }}>Easiest way<br/>
+        }}>Easiest way{"\n"}
           Manage your web3 assets</ThemedText>
       </FlexView>
       <FlexView style={styles.buttonContainer}>
-        <Link href="/sign-up/step1">
+        <Link href="/sign-up/step1" asChild>
           <Button size="lg" variant="solid" style={{width: 350}}>
             Create a wallet
           </Button>
         </Link>
-        <Link href={"#"}>
+        <Link href={"#"} asChild>
           <Button size="lg" variant="ghost" style={{width: 350}}>
             Import wallet
           </Button>
