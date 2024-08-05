@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {Alert, StyleSheet, View} from 'react-native';
+import {Alert, Pressable, StyleSheet, View} from 'react-native';
 import {Button, IconButton} from "@/components/button";
 import {ThemedText} from "@/components/ThemedText";
-import {BrandBlackEdge, LeftArrow} from "@/components/svg";
+import {Brand, Normal} from "@/components/svg";
 import { Link } from 'expo-router';
 import {FlexView} from "@/components/ThemedView";
 import {SecureInput} from "@/components/input";
@@ -10,12 +10,7 @@ import Checkbox from "@/components/checkbox";
 import { ProgressBar }from "@/app/sign-up/component/ProgressBar";
 import FormItem from "@/components/FormItem";
 import {useForm} from "react-hook-form";
-
-
-
-const emailRegEx =
-  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-
+import {Colors} from "@/constants/Colors";
 
 const Step1 = () => {
   const [checked, setChecked] = useState(false);
@@ -54,16 +49,14 @@ const Step1 = () => {
     <FlexView style={[styles.container, {gap: 20, flex: 1}]}>
       <View style={{gap: 4,width: "100%"}}>
         <FlexView style={{flexDirection: 'row' ,gap: 4, alignItems: 'center'}}>
-          <BrandBlackEdge length={32}/>
+          <Brand.BrandBlackEdge length={32}/>
           <ThemedText>EduWallet</ThemedText>
         </FlexView>
         <Link href="/sign-up" asChild>
-          <View>
-            <IconButton>
-              <LeftArrow />
-              <ThemedText>{' '}</ThemedText>
-            </IconButton>
-          </View>
+          <Pressable style={{width: 54, height: 54, backgroundColor: Colors.dark.bgGray, borderRadius: 100,alignItems: "center",
+            justifyContent: "center",}} >
+            <Normal.LeftArrow />
+          </Pressable>
         </Link>
       </View>
       <ProgressBar level={level} />

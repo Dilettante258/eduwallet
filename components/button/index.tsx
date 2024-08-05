@@ -1,4 +1,4 @@
-import {Pressable, PressableProps, StyleProp, StyleSheet, ViewStyle} from "react-native";
+import {Pressable, PressableProps, StyleProp, StyleSheet, ViewStyle, Text} from "react-native";
 import {Colors} from "@/constants/Colors";
 import React from "react";
 import {ThemedText} from "@/components/ThemedText";
@@ -48,7 +48,6 @@ const IconButton = React.forwardRef<PressableRef, ButtonProps>(({disabled, onPre
   return (
     <Pressable
       ref={ref}
-      onPress={disabled ? undefined : onPress}
       style={({ pressed }) => [
         styles.basic,
         IconButtonStyles[size],
@@ -57,9 +56,10 @@ const IconButton = React.forwardRef<PressableRef, ButtonProps>(({disabled, onPre
       {...rest}
     >
       {children}
-      </Pressable>
+    </Pressable>
   )
 })
+// TODO: 莫名其妙的失效了
 
 
 

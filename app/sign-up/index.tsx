@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Button} from "@/components/button";
 import {ThemedText} from "@/components/ThemedText";
-import {BrandBlackEdge} from "@/components/svg";
+import {Brand} from "@/components/svg";
 import { Link } from 'expo-router';
 import {FlexView} from "@/components/ThemedView";
 
@@ -12,7 +12,7 @@ const Sign = () => {
   return (
     <FlexView style={styles.container}>
       <FlexView style={styles.brandContainer}>
-        <BrandBlackEdge length={84}/>
+        <Brand.BrandBlackEdge length={84}/>
         <ThemedText size="lg">Welcome</ThemedText>
         <ThemedText style={{
           textAlign: "center",

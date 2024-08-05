@@ -1,21 +1,6 @@
-import {
-  TransparentBrand,
-  BrandWhiteEdge,
-  BrandBlackEdge,
-  BlackBrand
-} from './BrandIcon';
+import * as Brand from './BrandIcon';
 
-import {
-  LeftArrow,
-  WarningIcon
-} from "./Normal";
+import * as Normal from "./Normal";
 
 
-export {
-  TransparentBrand,
-  BrandWhiteEdge,
-  BrandBlackEdge,
-  BlackBrand,
-  LeftArrow,
-  WarningIcon
-}
+export { Brand, Normal}

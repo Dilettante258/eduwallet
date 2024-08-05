@@ -1,17 +1,13 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import Button from "@/components/button";
 import {ThemedText} from "@/components/ThemedText";
-import {BrandBlackEdge} from "@/components/svg";
+import {Brand} from "@/components/svg";
 
 
 const Loading = () => {
-  const [text, setText] = useState("")
-
-
   return (
     <View style={styles.container}>
-      <BrandBlackEdge length={150}/>
+      <Brand.BrandBlackEdge length={150}/>
       <ThemedText type="BrandName">Welcome</ThemedText>
     </View>
   );

@@ -5,8 +5,8 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  size?: 'lg' | 'md' | 'sm' | 'xs' | 'xxs';
-  type?: 'default' | 'bold' | 'medium' | 'subtitle' | 'link' | 'BrandName' | 'error';
+  size?: 'xl' | 'lg' | 'md' | 'sm' | 'xs' | 'xxs';
+  type?: 'default' | 'bold' | 'medium' | 'subtitle' | 'muted' | 'link' | 'BrandName' | 'error';
 };
 
 export function ThemedText({
@@ -33,6 +33,10 @@ export function ThemedText({
 }
 
 const styles = StyleSheet.create({
+  xl: {
+    fontSize: 24,
+    lineHeight: 36,
+  },
   lg: {
     fontSize: 18,
     lineHeight: 27,
@@ -43,7 +47,7 @@ const styles = StyleSheet.create({
   },
   sm: {
     fontSize: 14,
-    lineHeight: 20,
+    lineHeight: 21,
   },
   xs: {
     fontSize: 12,
@@ -68,6 +72,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: 'PoppinsBold',
     fontWeight: 'bold',
+  },
+  muted: {
+    fontFamily: 'PoppinsRegular',
+    color: '#A5A5A5',
   },
   link: {
     fontFamily: 'PoppinsRegular',
