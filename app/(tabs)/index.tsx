@@ -46,6 +46,7 @@ export default function HomeScreen() {
         </ThemedText>
       </ThemedView>
       <Link href={"/sign-up/step1"}><ThemedText>Sign up</ThemedText></Link>
+      <Link href={"/playground"}><ThemedText>PlayGround</ThemedText></Link>
     </ParallaxScrollView>
   );
 }

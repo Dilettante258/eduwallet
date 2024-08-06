@@ -27,9 +27,6 @@ export default function complete  () {
   );
 }
 
-
-
-
 const styles = StyleSheet.create({
   main: {
     ...StyleSheet.absoluteFillObject,
