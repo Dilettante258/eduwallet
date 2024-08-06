@@ -26,6 +26,8 @@ export const Colors = {
     textGray: '#A5A5A5',
     fill: '#1C1C1C',
     tabIconDefault: '#9BA1A6',
+    warning: '#FB7945',
+    ok: '#2AE9B9',
     tabIconSelected: tintColorDark,
     primary: primaryColor,
   },

@@ -69,10 +69,13 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     alignItems: "center",
     justifyContent: "center",
+    display: "flex",
+    alignContent: "center",
   },
   sm: {
-    width: 350,
-    height: 54,
+    width: 63,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
   },
   md: {
     width: 350,
@@ -86,7 +89,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.dark.primary,
   },
   ghost: {
-    borderColor: "white",
+    borderColor: "#A5A5A5",
     borderWidth: 1,
     backgroundColor: "transparent",
   },

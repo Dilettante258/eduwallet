@@ -65,7 +65,7 @@ const Step3 = () => {
       <View style={styles.secretContainer}>
         {
           selected.map((item, index) => (
-            <Pressable>
+            <Pressable key={index}>
               <ThemedText>{item}</ThemedText>
             </Pressable>
           ))

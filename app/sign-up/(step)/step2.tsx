@@ -49,7 +49,7 @@ const Step2 = () => {
         {/* TODO: 需要引入第三方组件 */}
         {
           secret.map((item, index) => (
-            <Pressable>
+            <Pressable key={index}>
               <ThemedText>{item}</ThemedText>
             </Pressable>
           ))

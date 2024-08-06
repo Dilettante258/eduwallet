@@ -16,11 +16,12 @@ export default function complete  () {
         >You passed the test - keep your {'\n'}seedphrase safe, it’s your responsibility!</ThemedText>
       </FlexView>
       <Link href="/asset" asChild>
-        <Pressable style={styles.buttonContainer}>
-          <Button>
-            Go to my wallet
-          </Button>
-        </Pressable>
+        <Button style={styles.buttonContainer}>
+          Go to my wallet
+        </Button>
+        {/*<Pressable style={styles.buttonContainer}>*/}
+        {/*  */}
+        {/*</Pressable>*/}
       </Link>
     </View>
   );
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     ...StyleSheet.absoluteFillObject,
     top: '68%',
-    height: 128,
+    // height: 128,
     width: '100%',
   }
 })
