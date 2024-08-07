@@ -2,12 +2,13 @@ import {Pressable, PressableProps, StyleProp, StyleSheet, ViewStyle, Text} from 
 import {Colors} from "@/constants/Colors";
 import React from "react";
 import {ThemedText} from "@/components/ThemedText";
-
+import {Normal} from "@/components/svg";
+import { router } from 'expo-router';
 
 type ButtonProps = PressableProps & {
   size?: "sm" | "md" | "lg",
   variant?: "solid" | "ghost",
-  children: React.ReactNode,
+  children?: React.ReactNode,
   disabled?: boolean,
   style?: StyleProp<ViewStyle>
 }
@@ -62,7 +63,25 @@ const IconButton = React.forwardRef<PressableRef, ButtonProps>(({disabled, onPre
 // TODO: 莫名其妙的失效了
 
 
+const BackButton = ({style, ...rest}: ButtonProps) => {
+  function goBack() {
+    if (router.canGoBack()) {
+      router.back()
+    }
+  }
 
+  return (
+    <Pressable
+      style={[{width: 54, height: 54, backgroundColor: Colors.dark.bgGray, borderRadius: 100,alignItems: "center",
+      justifyContent: "center",},style]}
+      onPress={goBack}
+
+
+    >
+      <Normal.LeftArrow />
+    </Pressable>
+  )
+}
 
 const styles = StyleSheet.create({
   basic: {
@@ -127,5 +146,6 @@ const IconButtonStyles = StyleSheet.create({
 
 export {
   Button,
-  IconButton
+  IconButton,
+  BackButton
 }

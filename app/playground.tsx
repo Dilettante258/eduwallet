@@ -1,23 +1,28 @@
-import { Sheet } from 'react-modal-sheet';
-import { useState } from 'react';
-import {Button} from "@/components/button";
-function Example() {
-  const [isOpen, setOpen] = useState(false);
+import { TrueSheet } from "@lodev09/react-native-true-sheet"
+import {useRef} from "react";
+import {Button, View} from "react-native";
+
+const App = () => {
+  const sheet = useRef<TrueSheet>(null)
+
+  // Present the sheet ✅
+  const present = async () => {
+    await sheet.current?.present()
+    console.log('horray! sheet has been presented 💩')
+  }
+
+  // Dismiss the sheet ✅
+  const dismiss = async () => {
+    await sheet.current?.dismiss()
+    console.log('Bye bye 👋')
+  }
 
   return (
-    <>
-      <Button onClick={() => setOpen(true)}>Open sheet</Button>
+    <View>
+      <Button onPress={present} title="Present" />
 
-      <Sheet isOpen={isOpen} onClose={() => setOpen(false)}>
-        <Sheet.Container>
-          <Sheet.Header />
-          <Sheet.Content>{/* Your sheet content goes here */}</Sheet.Content>
-        </Sheet.Container>
-        <Sheet.Backdrop />
-      </Sheet>
-    </>
-  );
+    </View>
+  )
 }
 
-
-export default Example;
+export default App

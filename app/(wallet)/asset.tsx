@@ -4,6 +4,7 @@ import {ThemedText} from "@/components/ThemedText";
 import {Normal} from "@/components/svg";
 import {Colors} from "@/constants/Colors";
 import {Button, IconButton} from "@/components/button";
+import {Link} from "expo-router";
 
 type asset = {
   icon: any,
@@ -176,9 +177,12 @@ const AssetPage = () => {
           </View>
           <ThemedText size='sm' style={{color: Colors.dark.fill}} type='medium'>Request</ThemedText>
         </View>
-        <IconButton>
-          <Normal.QRCode />
-        </IconButton>
+        <Link href='/receive-invalid' asChild>
+          <Pressable style={{width: 54, height: 54, backgroundColor: Colors.dark.bgGray, borderRadius: 100,alignItems: "center",
+            justifyContent: "center",}} >
+            <Normal.QRCode />
+          </Pressable>
+        </Link>
       </View>
       <View style={styles.assetContainer}>
         <View style={[styles.row,{gap: 8, alignItems: "center"}]}>
