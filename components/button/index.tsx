@@ -5,8 +5,10 @@ import {ThemedText} from "@/components/ThemedText";
 import {Normal} from "@/components/svg";
 import { router } from 'expo-router';
 
+
 type ButtonProps = PressableProps & {
   size?: "sm" | "md" | "lg",
+  textSize?: 'xl' | 'lg' | 'md' | 'sm' | 'xs' | 'xxs',
   variant?: "solid" | "ghost",
   children?: React.ReactNode,
   disabled?: boolean,
@@ -16,7 +18,8 @@ type ButtonProps = PressableProps & {
 type PressableRef = React.ElementRef<typeof Pressable>;
 
 const Button = React.forwardRef<PressableRef, ButtonProps>((
-  {style,
+  { style,
+    textSize,
     disabled,
     onPress,
     size = 'lg',
@@ -37,7 +40,7 @@ const Button = React.forwardRef<PressableRef, ButtonProps>((
       ]}
       {...rest}
     >
-      <ThemedText>
+      <ThemedText size={textSize??'md'}>
         {children}
       </ThemedText>
     </Pressable>

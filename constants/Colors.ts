@@ -24,6 +24,7 @@ export const Colors = {
     icon: '#9BA1A6',
     bgGray: '#2A2829',
     textGray: '#A5A5A5',
+    borderGray: '#555555',
     fill: '#1C1C1C',
     tabIconDefault: '#9BA1A6',
     warning: '#FB7945',
