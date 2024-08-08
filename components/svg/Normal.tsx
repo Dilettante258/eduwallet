@@ -1,7 +1,8 @@
 import * as React from "react"
 import Svg, { SvgProps, Path } from "react-native-svg"
-import type { SvgComponentProps } from './BrandIcon'
+import type {ColorSvgProps, SvgComponentProps} from './BrandIcon'
 import {color} from "ansi-fragments";
+import {Pressable} from "react-native";
 
 const LeftArrow = (props: SvgProps) => (
   <Svg
@@ -18,7 +19,7 @@ const LeftArrow = (props: SvgProps) => (
   </Svg>
 )
 
-const WarningIcon = ({length, props}: SvgComponentProps) => (
+const WarningIcon = ({length, color, ...props}: ColorSvgProps)  => (
   <Svg
     width={length??16}
     height={length??16}
@@ -27,7 +28,7 @@ const WarningIcon = ({length, props}: SvgComponentProps) => (
     {...props}
   >
     <Path
-      fill="#FB7945"
+      fill={color??"#FB7945"}
       fillRule="evenodd"
       d="M8 1.333a6.667 6.667 0 1 0 0 13.333A6.667 6.667 0 0 0 8 1.333Zm.473 10.474a.765.765 0 0 1-.22.14.626.626 0 0 1-.507 0 .765.765 0 0 1-.22-.14.667.667 0 0 1-.193-.474.667.667 0 0 1 .193-.473.666.666 0 0 1 .727-.14.504.504 0 0 1 .12.06c.035.025.068.051.1.08a.7.7 0 0 1 .193.473.667.667 0 0 1-.193.474ZM8 9.333a.667.667 0 0 0 .666-.666v-4a.667.667 0 0 0-1.333 0v4c0 .368.298.666.667.666Z"
       clipRule="evenodd"
@@ -35,7 +36,7 @@ const WarningIcon = ({length, props}: SvgComponentProps) => (
   </Svg>
 )
 
-const LockIcon = ({length, props}: SvgComponentProps) => (
+const LockIcon = ({length, ...props}: SvgComponentProps) => (
   <Svg
     width={length??24}
     height={length??24}
@@ -49,7 +50,7 @@ const LockIcon = ({length, props}: SvgComponentProps) => (
   </Svg>
 )
 
-const Clock = ({length, props}: SvgComponentProps) => (
+const Clock = ({length, ...props}: SvgComponentProps) => (
   <Svg
     width={length??32}
     height={length??32}
@@ -66,7 +67,7 @@ const Clock = ({length, props}: SvgComponentProps) => (
   </Svg>
 )
 
-const Scan = ({length, props}: SvgComponentProps) => (
+const Scan = ({length, ...props}: SvgComponentProps) => (
   <Svg
     width={length??32}
     height={length??32}
@@ -83,12 +84,15 @@ const Scan = ({length, props}: SvgComponentProps) => (
   </Svg>
 )
 
-const Up = ({length, props}: SvgComponentProps) => (
+type SvgRef = React.ElementRef<typeof Svg>;
+
+const Up = React.forwardRef<SvgRef,SvgComponentProps>(({length, ...props}: SvgComponentProps,ref) => (
   <Svg
     width={length??16}
     height={length??16}
     viewBox="0 0 16 16"
     fill="none"
+    ref={ref}
     {...props}
   >
     <Path
@@ -96,9 +100,9 @@ const Up = ({length, props}: SvgComponentProps) => (
       d="M14.5 11.107a.667.667 0 0 1-.94.06L8 6.227l-5.56 4.94a.667.667 0 0 1-.88-1l6-5.333a.667.667 0 0 1 .88 0l6 5.333a.667.667 0 0 1 .06.94Z"
     />
   </Svg>
-)
+))
 
-const QRCode = ({length, props}: SvgComponentProps) => (
+const QRCode = ({length, ...props}: SvgComponentProps) => (
   <Svg
     width={length??24}
     height={length??24}
@@ -128,6 +132,113 @@ const Copy = (props: SvgProps) => (
   </Svg>
 )
 
+const Edit = ({length, ...props}: SvgComponentProps) => (
+  <Svg
+    width={length??16}
+    height={length??16}
+    viewBox="0 0 16 16"
+    fill="none"
+    {...props}
+  >
+    <Path
+      fill="#A5A5A5"
+      fillRule="evenodd"
+      d="m6.227 12.6 7.82-7.82a2 2 0 1 0-2.827-2.827l-7.84 7.84a.767.767 0 0 0-.127.173L1.4 13.706a.667.667 0 0 0 .6.96.666.666 0 0 0 .313-.086l3.74-1.854a.765.765 0 0 0 .174-.126ZM14 14.666a.667.667 0 1 0 0-1.333H8a.667.667 0 0 0 0 1.333h6ZM10.88 6.06l-.94-.94-5.52 5.547-.927 1.867 1.84-.954 5.547-5.52Zm1.763-3.395c.183 0 .358.075.483.208a.666.666 0 0 1-.02.966L11.82 5.12l-.94-.94 1.28-1.306a.667.667 0 0 1 .483-.208Z"
+      clipRule="evenodd"
+    />
+  </Svg>
+)
+
+const Settings = ({length, ...props}: SvgComponentProps) => (
+  <Svg
+    width={24}
+    height={25}
+    fill="none"
+    {...props}
+  >
+    <Path
+      fill="#fff"
+      d="M10.825 22.5c-.45 0-.838-.15-1.163-.45-.325-.3-.52-.667-.587-1.1L8.85 19.3a3.79 3.79 0 0 1-.613-.3 8.266 8.266 0 0 1-.562-.375l-1.55.65c-.417.183-.833.2-1.25.05a1.843 1.843 0 0 1-.975-.8l-1.175-2.05a1.587 1.587 0 0 1-.2-1.225c.1-.433.325-.792.675-1.075l1.325-1a2.387 2.387 0 0 1-.025-.338v-.675c0-.108.008-.22.025-.337l-1.325-1a1.897 1.897 0 0 1-.675-1.075c-.1-.433-.033-.842.2-1.225L3.9 6.475c.233-.383.558-.65.975-.8.417-.15.833-.133 1.25.05l1.55.65c.183-.133.375-.258.575-.375.2-.117.4-.217.6-.3l.225-1.65c.067-.433.262-.8.587-1.1.325-.3.713-.45 1.163-.45h2.35c.45 0 .837.15 1.162.45.325.3.521.667.588 1.1l.225 1.65c.217.083.42.183.612.3.192.117.38.242.563.375l1.55-.65c.417-.183.833-.2 1.25-.05.417.15.742.417.975.8l1.175 2.05c.233.383.3.792.2 1.225-.1.433-.325.792-.675 1.075l-1.325 1c.017.117.025.23.025.338v.675c0 .108-.017.22-.05.337l1.325 1c.35.283.575.642.675 1.075.1.433.033.842-.2 1.225l-1.2 2.05c-.233.383-.558.65-.975.8-.417.15-.833.133-1.25-.05l-1.5-.65a6.842 6.842 0 0 1-.575.375c-.2.117-.4.217-.6.3l-.225 1.65c-.067.433-.263.8-.588 1.1-.325.3-.712.45-1.162.45h-2.35ZM12.05 16c.967 0 1.792-.342 2.475-1.025A3.372 3.372 0 0 0 15.55 12.5c0-.967-.342-1.792-1.025-2.475A3.373 3.373 0 0 0 12.05 9c-.983 0-1.813.342-2.488 1.025A3.393 3.393 0 0 0 8.55 12.5c0 .967.337 1.792 1.012 2.475.676.683 1.505 1.025 2.488 1.025Z"
+    />
+  </Svg>
+)
+
+const Certificate = (props: SvgProps) => (
+  <Svg
+    width={24}
+    height={24}
+    fill="none"
+    {...props}
+  >
+    <Path
+      fill="#fff"
+      fillRule="evenodd"
+      d="M18.9 12.2 18.19 9l.71-3.2a1 1 0 0 0-.68-1.17l-3.13-1-2.41-2.21a1 1 0 0 0-1.36 0L8.91 3.64l-3.13 1A1 1 0 0 0 5.1 5.8L5.81 9l-.71 3.2a1 1 0 0 0 .68 1.17l2.22.7V21a1 1 0 0 0 1.55.83L12 20.2l2.45 1.63A1 1 0 0 0 16 21v-6.93l2.22-.7a1 1 0 0 0 .68-1.17Zm-7.45 6-1.45 1v-3.84l1.32 1.22a1 1 0 0 0 .68.26 1.05 1.05 0 0 0 .68-.26L14 15.36v3.77l-1.45-.93a1 1 0 0 0-1.1 0Zm2.45-5.44c.11-.097.24-.172.38-.22l2.47-.8-.57-2.52a1.09 1.09 0 0 1 0-.44l.57-2.52-2.47-.77a1.11 1.11 0 0 1-.38-.22L12 3.52l-1.9 1.75a1.11 1.11 0 0 1-.38.22l-2.47.77.57 2.52c.03.146.03.295 0 .44l-.57 2.52 2.47.77c.14.048.27.123.38.22l1.9 1.75 1.9-1.72Z"
+      clipRule="evenodd"
+    />
+  </Svg>
+)
+
+const Wallet = (props: SvgProps) => (
+  <Svg
+    width={24}
+    height={24}
+    fill="none"
+    {...props}
+  >
+    <Path
+      fill="#fff"
+      fillRule="evenodd"
+      d="M19 22a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3H5a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h14Zm-3-12a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm4-1h-7a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h7V9Zm-1-5a1 1 0 0 1 1 1v2h-7a3 3 0 0 0-3 3v4a3 3 0 0 0 3 3h7v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h14Z"
+      clipRule="evenodd"
+    />
+  </Svg>
+)
+
+const Issue = (props: SvgProps) => (
+  <Svg
+    width={24}
+    height={24}
+    fill="none"
+    {...props}
+  >
+    <Path
+      fill="#fff"
+      fillRule="evenodd"
+      d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2a10 10 0 0 1 0 20Zm1-9V7a1 1 0 1 0-2 0v6a1 1 0 1 0 2 0Zm-.62 3.08a.754.754 0 0 1 .18.09c.052.037.102.077.15.12.183.192.286.446.29.71a1 1 0 0 1-.29.71c-.097.089-.209.16-.33.21a.94.94 0 0 1-.76 0 1.152 1.152 0 0 1-.33-.21A1 1 0 0 1 11 17a1 1 0 0 1 .29-.71 1 1 0 0 1 .9-.27c.066.01.13.03.19.06ZM12 4a8 8 0 1 1 0 16 8 8 0 0 1 0-16Z"
+      clipRule="evenodd"
+    />
+  </Svg>
+)
+
+const RightArrow = (props: SvgProps) => (
+  <Svg
+    width={16}
+    height={16}
+    fill="none"
+    {...props}
+  >
+    <Path
+      fill="#A5A5A5"
+      d="m11.167 8.44-5.333 6a.667.667 0 0 1-1-.88L9.774 8l-4.94-5.56a.667.667 0 0 1 1-.88l5.333 6a.667.667 0 0 1 0 .88Z"
+    />
+  </Svg>
+)
+
+const Close = (props: SvgProps) => (
+  <Svg
+    width={16}
+    height={17}
+    fill="none"
+    {...props}
+  >
+    <Path
+      fill="#A5A5A5"
+      d="M14.473 14.027a.667.667 0 0 1 0 .947.667.667 0 0 1-.947 0L8 9.44l-5.527 5.534a.667.667 0 0 1-.947 0 .667.667 0 0 1 0-.947L7.06 8.5 1.526 2.974a.67.67 0 1 1 .947-.947L8 7.56l5.526-5.533a.67.67 0 0 1 .947.947L8.94 8.5l5.533 5.527Z"
+    />
+  </Svg>
+)
+
 export {
   LeftArrow,
   WarningIcon,
@@ -136,5 +247,12 @@ export {
   Scan,
   Up,
   QRCode,
-  Copy
+  Copy,
+  Edit,
+  Settings,
+  Certificate,
+  Wallet,
+  Issue,
+  RightArrow,
+  Close
 }
