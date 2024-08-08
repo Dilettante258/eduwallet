@@ -12,12 +12,12 @@ type InputProps = {
 
 
 
-const Input = ({defaultValue, ...props}: InputProps) => {
+const Input = ({defaultValue, style, ...props}: InputProps) => {
   const [value, onChangeValue] = React.useState(defaultValue??'');
   return (
     <SafeAreaView>
       <TextInput
-        style={styles.input}
+        style={[style,styles.input]}
         onChangeText={onChangeValue}
         autoCapitalize="none"
         value={value}
@@ -27,8 +27,6 @@ const Input = ({defaultValue, ...props}: InputProps) => {
     </SafeAreaView>
   );
 };
-
-
 const SecureInput = ({defaultValue, ...props}: InputProps) => {
   const [hide, setHide] = useState<boolean>(false);
   const [value, onChangeValue] = React.useState(defaultValue??'');
@@ -62,6 +60,7 @@ const styles = StyleSheet.create({
   input: {
     height: 53,
     borderWidth: 1,
+    borderColor: Colors.dark.textGray,
     backgroundColor: Colors.dark.bgGray,
     color: 'white',
     fontFamily: 'Poppins-Regular',

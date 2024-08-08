@@ -2,16 +2,15 @@ import * as React from "react"
 import Svg, { SvgProps, Path } from "react-native-svg"
 import {ColorValue} from "react-native";
 
-export type SvgComponentProps = {
+export type SvgComponentProps = SvgProps & {
   length?: number
-  props?: SvgProps
 }
 
-type ColorSvgProps = SvgComponentProps & {
-  strokeColor?: ColorValue
+export type ColorSvgProps = SvgComponentProps & {
+  color?: ColorValue
 }
 
-const TransparentBrand = ({length, props, strokeColor}: ColorSvgProps) => (
+const TransparentBrand = ({length, color, ...props}: ColorSvgProps) => (
   <Svg
     width={length??48}
     height={length??48}
@@ -20,20 +19,20 @@ const TransparentBrand = ({length, props, strokeColor}: ColorSvgProps) => (
     {...props}
   >
     <Path
-      stroke={strokeColor??"#000"}
+      stroke={color??"#000"}
       strokeLinecap="round"
       strokeWidth={2}
       d="m5.4 15.781 18.207 25.337c.137.191.434.092.434-.145V22.765m18.6-6.984L24.433 41.118c-.137.191-.433.092-.433-.145V22.765"
     />
     <Path
-      stroke={strokeColor??"#000"}
+      stroke={color??"#000"}
       strokeLinecap="round"
       strokeWidth={2}
       d="m6.05 12.725 14.724-5.77a8.828 8.828 0 0 1 6.452 0l14.723 5.77c1.54.604 1.54 2.828 0 3.432l-14.723 5.77a8.828 8.828 0 0 1-6.452 0l-14.723-5.77c-1.54-.604-1.54-2.828 0-3.432Z"
     />
   </Svg>
 )
-const BrandWhiteEdge = ({length, props}: SvgComponentProps) => (
+const BrandWhiteEdge = ({length, ...props}: SvgComponentProps) => (
   <Svg
     width={length??48}
     height={length??48}
@@ -66,7 +65,7 @@ const BrandWhiteEdge = ({length, props}: SvgComponentProps) => (
     />
   </Svg>
 )
-const BrandBlackEdge = ({length, props}: SvgComponentProps) => (
+const BrandBlackEdge = ({length, ...props}: SvgComponentProps) => (
   <Svg
     width={length??48}
     height={length??48}
@@ -100,7 +99,7 @@ const BrandBlackEdge = ({length, props}: SvgComponentProps) => (
   </Svg>
 )
 
-const BlackBrand = ({length, props}: SvgComponentProps) => (
+const BlackBrand = ({length, ...props}: SvgComponentProps) => (
   <Svg
     width={length??48}
     height={length??48}

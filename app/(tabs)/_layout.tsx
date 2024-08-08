@@ -4,6 +4,9 @@ import React from 'react';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import Animated, {Easing, useAnimatedStyle, useSharedValue, withTiming} from 'react-native-reanimated';
+import { Dimensions } from 'react-native';
+const windowHeight = Dimensions.get('window').height;
+
 
 const Test = ({ focused, ...rest}: {
   focused: boolean;
@@ -20,7 +23,7 @@ const Test = ({ focused, ...rest}: {
       width: withTiming(width.value, config),
     };
   });
-  width.value += 42;
+  width.value = 42;
   if (!focused) {
     width.value = 0;
   }
@@ -44,13 +47,15 @@ export default function TabLayout() {
     <Tabs
       sceneContainerStyle={{
         marginHorizontal: 20,
-        marginTop: 50,
-        marginBottom: 20,
+        paddingTop: 60,
+        paddingBottom: 20,
         flex: 1,
+        position: 'relative',
       }}
       screenOptions={{
         tabBarStyle: {
           position: 'absolute',
+          top: windowHeight - 86,
           marginHorizontal: 20,
           marginBottom: 20,
           borderRadius: 100,
