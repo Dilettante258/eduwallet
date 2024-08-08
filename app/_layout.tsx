@@ -32,10 +32,18 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={(colorScheme === 'dark'||true) ? DarkTheme : DefaultTheme}>
-      <Stack>
+      <Stack initialRouteName="playground">
+        <Stack.Screen name="playground" options={{ headerShown: false }} />
+        <Stack.Screen name="sign-up/index" options={ {title: "Sign Up"}}/>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="(sign-up)" options={ {title: "Sign Up"}}/>
-        <Stack.Screen name="+not-found" />
+        <Stack.Screen name="+not-found" options={{ headerShown: false }}/>
+        <Stack.Screen
+          name="modal"
+          options={{
+            // Set the presentation mode to modal for our modal route.
+            presentation: 'modal',
+          }}
+        />
       </Stack>
     </ThemeProvider>
   );

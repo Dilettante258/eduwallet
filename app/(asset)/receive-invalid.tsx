@@ -4,7 +4,7 @@ import QRCode from "react-qr-code";
 import {Colors} from "@/constants/Colors";
 import {ThemedText} from "@/components/ThemedText";
 import {Normal} from "@/components/svg";
-import Header from "@/app/(wallet)/component/header";
+import Header from "@/app/(asset)/component/header";
 
 
 const ReceiveInvalid = () => {

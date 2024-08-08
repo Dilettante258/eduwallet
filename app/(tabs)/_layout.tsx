@@ -2,51 +2,100 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import Animated, {Easing, useAnimatedStyle, useSharedValue, withTiming} from 'react-native-reanimated';
+
+const Test = ({ focused, ...rest}: {
+  focused: boolean;
+}) => {
+  const width = useSharedValue(0);
+
+  const config = {
+    duration: 500,
+    easing: Easing.bezier(0.5, 0.01, 0, 1),
+  };
+
+  const style = useAnimatedStyle(() => {
+    return {
+      width: withTiming(width.value, config),
+    };
+  });
+  width.value += 42;
+  if (!focused) {
+    width.value = 0;
+  }
+  return (
+    <Animated.View style={[{
+      position: 'absolute',
+      height: 4,
+      width: 0,
+      borderRadius: 100,
+      bottom: 0,
+      backgroundColor: 'blue'
+    },style]}>
+    </Animated.View>
+  )
+}
+
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-
   return (
     <Tabs
+      sceneContainerStyle={{
+        marginHorizontal: 20,
+        marginTop: 50,
+        marginBottom: 20,
+        flex: 1,
+      }}
       screenOptions={{
         tabBarStyle: {
+          position: 'absolute',
           marginHorizontal: 20,
+          marginBottom: 20,
           borderRadius: 100,
           height: 76,
-          paddingVertical: 16,
-          paddingHorizontal: 20,
+          paddingHorizontal: 40,
           backgroundColor: "white",
-          justifyContent: "space-between",
         },
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarItemStyle: {
+          flex: 1,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: 4,
+          paddingVertical: 16,
+          paddingHorizontal: 16,
+          position: "relative",
+        },
+        tabBarLabel: ({focused,...rest})=> <Test focused={focused}/>,
+        tabBarActiveTintColor: '#1C1C1C',
         headerShown: false,
       }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: 'Wallet',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="achievements"
         options={{
-          title: 'Explore',
+          title: 'Achievements',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="sign-up/index"
+        name="setting"
         options={{
-          title: 'Profile',
+          title: 'Setting',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'person' : 'person-outline'} color={color} />
+            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
           ),
         }}
       />

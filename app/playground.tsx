@@ -1,8 +1,10 @@
 import { TrueSheet } from "@lodev09/react-native-true-sheet"
 import {useRef} from "react";
 import {Button, View} from "react-native";
+import {Link} from "expo-router";
+import {ThemedText} from "@/components/ThemedText";
 
-const App = () => {
+const Playground = () => {
   const sheet = useRef<TrueSheet>(null)
 
   // Present the sheet ✅
@@ -18,11 +20,17 @@ const App = () => {
   }
 
   return (
-    <View>
+    <View style={{flex:1,gap:4,padding: 16}}>
+      <Link href={"/sign-up/step1"}><ThemedText>Sign up</ThemedText></Link>
+      <Link href={"/asset"}><ThemedText>Asset</ThemedText></Link>
+      <Link href={"/playground"}><ThemedText>PlayGround</ThemedText></Link>
+      <Link href="/modal">Present modal</Link>
+
+
       <Button onPress={present} title="Present" />
 
     </View>
   )
 }
 
-export default App
+export default Playground
