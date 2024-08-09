@@ -1,18 +1,11 @@
-import Ionicons from '@expo/vector-icons/Ionicons';
-import {StyleSheet, Image, Platform, View, Pressable, TouchableHighlight, Text} from 'react-native';
-
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import {Image, Pressable, StyleSheet, TouchableHighlight, View} from 'react-native';
+import {ThemedText} from '@/components/ThemedText';
 import {Normal} from "@/components/svg";
 import {Colors} from "@/constants/Colors";
 import ThemedModal from "@/components/modal";
 import React, {useState} from "react";
 import {Input} from "@/components/input";
 import {Button} from "@/components/button";
-
 
 
 const Tab = ({ title, icon, onPress}: { title: string, icon: React.ReactNode, onPress: () => void }) => {

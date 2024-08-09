@@ -15,9 +15,11 @@ export function ThemedText({
   darkColor,
   size = 'md',
   type = 'default',
+  children,
   ...rest
 }: ThemedTextProps) {
-  const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+  // const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+  const color = 'white';
 
   return (
     <Text
@@ -28,7 +30,7 @@ export function ThemedText({
         style,
       ]}
       {...rest}
-    />
+    >{children}</Text>
   );
 }
 

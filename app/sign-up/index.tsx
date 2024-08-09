@@ -10,7 +10,7 @@ import {FlexView} from "@/components/ThemedView";
 
 const Sign = () => {
   return (
-    <FlexView style={styles.container}>
+    <FlexView style={[styles.container]}>
       <FlexView style={styles.brandContainer}>
         <Brand.BrandBlackEdge length={84}/>
         <ThemedText size="lg">Welcome</ThemedText>
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
   },
   container: {
     marginVertical: "auto",
+    flex: 0,
     gap: 180,
   }
 });

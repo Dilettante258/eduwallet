@@ -21,8 +21,8 @@ const Playground = () => {
 
   return (
     <View style={{flex:1,gap:4,padding: 16,marginVertical: 60}}>
-      <Link href="/sign-up/step1"><ThemedText>Sign up</ThemedText></Link>
-      <Link href="/asset"><ThemedText>Asset</ThemedText></Link>
+      <Link href="/sign-up/(step)/step1"><ThemedText>Sign up</ThemedText></Link>
+      <Link href="/(tabs)"><ThemedText>Asset</ThemedText></Link>
       <Link href="/playground1"><ThemedText>PlayGround1</ThemedText></Link>
       <Link href="/playground2"><ThemedText>PlayGround2</ThemedText></Link>
 

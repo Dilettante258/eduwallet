@@ -15,7 +15,7 @@ export default function complete  () {
           style={{textAlign: 'center'}}
         >You passed the test - keep your {'\n'}seedphrase safe, it’s your responsibility!</ThemedText>
       </FlexView>
-      <Link href="/asset" asChild>
+      <Link href="/(tabs)" asChild>
         <Button style={styles.buttonContainer}>
           Go to my wallet
         </Button>

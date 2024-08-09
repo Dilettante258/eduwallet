@@ -5,8 +5,9 @@ import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import Animated, {Easing, useAnimatedStyle, useSharedValue, withTiming} from 'react-native-reanimated';
 import { Dimensions } from 'react-native';
+import CommonCSS from "@/constants/CommonCSS";
 const windowHeight = Dimensions.get('window').height;
-
+import {Tab as TabsIcon} from "@/components/svg"
 
 const Test = ({ focused, ...rest}: {
   focused: boolean;
@@ -45,13 +46,7 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
   return (
     <Tabs
-      sceneContainerStyle={{
-        marginHorizontal: 20,
-        paddingTop: 60,
-        paddingBottom: 20,
-        flex: 1,
-        position: 'relative',
-      }}
+      sceneContainerStyle={CommonCSS.screen}
       screenOptions={{
         tabBarStyle: {
           position: 'absolute',
@@ -81,8 +76,8 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Wallet',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+          tabBarIcon: ({  focused }) => (
+            focused ? <TabsIcon.Asset1 /> : <TabsIcon.Asset2 />
           ),
         }}
       />
@@ -90,8 +85,8 @@ export default function TabLayout() {
         name="achievements"
         options={{
           title: 'Achievements',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+          tabBarIcon: ({  focused }) => (
+            focused ? <TabsIcon.Achievements1 /> : <TabsIcon.Achievements2 />
           ),
         }}
       />
@@ -99,8 +94,8 @@ export default function TabLayout() {
         name="setting"
         options={{
           title: 'Setting',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+          tabBarIcon: ({  focused }) => (
+            focused ? <TabsIcon.Setting1 /> : <TabsIcon.Setting2 />
           ),
         }}
       />

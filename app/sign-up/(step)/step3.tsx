@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {FlatList, Image, Pressable, StyleSheet, Text, View} from 'react-native';
+import {FlatList, Image, Pressable, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Button, IconButton} from "@/components/button";
 import {ThemedText} from "@/components/ThemedText";
 import {Brand, Normal} from "@/components/svg";
@@ -22,7 +22,8 @@ const Step3 = () => {
 
   const Item = ({ item }: { item: string}) => {
     return (
-      <Pressable
+      <TouchableOpacity
+        activeOpacity={0.8}
         onPress={() => {
           if (selected.includes(item)) {
             setSelected(selected.filter(i => i !== item))
@@ -33,26 +34,13 @@ const Step3 = () => {
         style={[styles.item,
         {backgroundColor: selected.includes(item) ? Colors.dark.primary : Colors.dark.bgGray}]}>
         <ThemedText style={{padding: 4, textAlign: "center"}}>{item}</ThemedText>
-      </Pressable>
+      </TouchableOpacity>
     );
   };
 
 
   return (
-    <FlexView style={[styles.container, {gap: 20, flex: 1}]}>
-      <View style={{gap: 4,width: "100%"}}>
-        <FlexView style={{flexDirection: 'row' ,gap: 4, alignItems: 'center'}}>
-          <Brand.BrandBlackEdge length={32}/>
-          <ThemedText>EduWallet</ThemedText>
-        </FlexView>
-        <Link href="/sign-up" asChild>
-          <Pressable style={{width: 54, height: 54, backgroundColor: Colors.dark.bgGray, borderRadius: 100,alignItems: "center",
-            justifyContent: "center",}} >
-            <Normal.LeftArrow />
-          </Pressable>
-        </Link>
-      </View>
-      <ProgressBar level={level} />
+    <FlexView style={{ flex: 1, gap: 20}}>
       <View style={styles.formContainer}>
         <ThemedText size="lg">
           Confirm Your Secrete Backup Phrase
@@ -61,7 +49,6 @@ const Step3 = () => {
           Please select each phrase in order to make sure it is correct.
         </ThemedText>
       </View>
-
       <View style={styles.secretContainer}>
         {
           selected.map((item, index) => (
@@ -79,9 +66,8 @@ const Step3 = () => {
           columnWrapperStyle={styles.columnWrapper}
           // keyExtractor={(item) => item}
         />
-
       </View>
-      <View style={{width: "100%"}}>
+      <View style={{width: "100%", marginTop: "auto"}}>
         <Link href="/sign-up/complete" style={{width: "100%"}} asChild>
           <Button size="lg" variant="solid">
             Confirm
@@ -94,12 +80,6 @@ const Step3 = () => {
 
 const styles = StyleSheet.create(
   {
-    container: {
-      gap: 20,
-      marginTop: 40,
-      marginBottom: 20,
-      marginHorizontal: 20,
-    },
     formContainer: {
       gap: 20,
       width: "100%",
@@ -111,9 +91,8 @@ const styles = StyleSheet.create(
       width: "100%",
       flex: 1,
     },
-
     secretContainer: {
-      minHeight: 94,
+      minHeight: 100,
       minWidth: "100%",
       padding: 20,
       backgroundColor: Colors.dark.bgGray,

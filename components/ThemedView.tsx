@@ -18,7 +18,7 @@ export function ThemedView({ style, lightColor, darkColor, ...otherProps }: Them
 export function FlexView({ style, ...otherProps }: ThemedViewProps) {
   return <View style={[{
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
   }, style]} {...otherProps} />;
 }

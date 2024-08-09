@@ -7,6 +7,8 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 import Loading from "@/app/loading";
+import SignUpHeader from "@/app/sign-up/component/Header";
+import {black} from "colorette";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -32,10 +34,21 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={(colorScheme === 'dark'||true) ? DarkTheme : DefaultTheme}>
-      <Stack initialRouteName="playground">
-        <Stack.Screen name="playground" options={{ headerShown: false }} />
-        <Stack.Screen name="sign-up/index" options={ {title: "Sign Up"}}/>
+      <Stack initialRouteName="(tabs)" screenOptions={{}}>
+        <Stack.Screen name="playground1" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="sign-up/index" options={
+          {
+            title: "Sign Up",
+            headerShown: false,
+            animation: 'fade_from_bottom',
+          }}/>
+        <Stack.Screen name="sign-up/(step)" options={
+          {
+            title: "Sign Up | Step 1",
+            animation: 'slide_from_right',
+            headerShown: false,
+          }}/>
         <Stack.Screen name="+not-found" options={{ headerShown: false }}/>
       </Stack>
     </ThemeProvider>

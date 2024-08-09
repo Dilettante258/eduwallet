@@ -18,20 +18,7 @@ const Step2 = () => {
 
 
   return (
-    <FlexView style={[styles.container, {gap: 20, flex: 1}]}>
-      <View style={{gap: 4,width: "100%"}}>
-        <FlexView style={{flexDirection: 'row' ,gap: 4, alignItems: 'center'}}>
-          <Brand.BrandBlackEdge length={32}/>
-          <ThemedText>EduWallet</ThemedText>
-        </FlexView>
-        <Link href="/sign-up" asChild>
-          <Pressable style={{width: 54, height: 54, backgroundColor: Colors.dark.bgGray, borderRadius: 100,alignItems: "center",
-            justifyContent: "center",}} >
-            <Normal.LeftArrow />
-          </Pressable>
-        </Link>
-      </View>
-      <ProgressBar level={level} />
+    <FlexView style={{flex: 1}}>
       <View style={styles.formContainer}>
         <ThemedText size="lg">
           Create Password
@@ -64,7 +51,7 @@ const Step2 = () => {
         </ThemedText>
       </View>
       <View style={{width: "100%"}}>
-        <Link href="/sign-up/step3" style={{width: "100%"}} asChild>
+        <Link href="./step3" style={{width: "100%"}} asChild>
           <Button size="lg" variant="solid">
             Next
           </Button>
@@ -76,12 +63,6 @@ const Step2 = () => {
 
 const styles = StyleSheet.create(
   {
-    container: {
-      gap: 20,
-      marginTop: 40,
-      marginBottom: 20,
-      marginHorizontal: 20,
-    },
     formContainer: {
       gap: 20,
       width: "100%",

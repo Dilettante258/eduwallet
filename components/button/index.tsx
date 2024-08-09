@@ -1,12 +1,19 @@
-import {Pressable, PressableProps, StyleProp, StyleSheet, ViewStyle, Text} from "react-native";
+import {
+  Pressable,
+  PressableProps,
+  StyleProp,
+  StyleSheet,
+  ViewStyle,
+  TouchableOpacity,
+  TouchableOpacityProps
+} from "react-native";
 import {Colors} from "@/constants/Colors";
 import React from "react";
 import {ThemedText} from "@/components/ThemedText";
 import {Normal} from "@/components/svg";
 import { router } from 'expo-router';
 
-
-type ButtonProps = PressableProps & {
+type ThemeProps = {
   size?: "sm" | "md" | "lg",
   textSize?: 'xl' | 'lg' | 'md' | 'sm' | 'xs' | 'xxs',
   variant?: "solid" | "ghost",
@@ -15,22 +22,26 @@ type ButtonProps = PressableProps & {
   style?: StyleProp<ViewStyle>
 }
 
+
+type ButtonProps = PressableProps & ThemeProps;
+
+
+type TouchableOpacityRef = React.ElementRef<typeof TouchableOpacity>;
 type PressableRef = React.ElementRef<typeof Pressable>;
 
-const Button = React.forwardRef<PressableRef, ButtonProps>((
+const Button = React.forwardRef<TouchableOpacityRef, ThemeProps&TouchableOpacityProps>((
   { style,
     textSize,
     disabled,
-    onPress,
     size = 'lg',
     variant = 'solid',
     children,
     ...rest
-  }: ButtonProps, ref) => {
+  }: ThemeProps&TouchableOpacityProps, ref) => {
   return (
-    <Pressable
+    <TouchableOpacity
+      activeOpacity={0.8}
       ref={ref}
-      onPress={disabled ? undefined : onPress}
       style={[
         styles.basic,
         styles[size],
@@ -43,7 +54,7 @@ const Button = React.forwardRef<PressableRef, ButtonProps>((
       <ThemedText size={textSize??'md'}>
         {children}
       </ThemedText>
-    </Pressable>
+    </TouchableOpacity>
   )
 })
 

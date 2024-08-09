@@ -26,11 +26,9 @@ export const ProgressBar = (
   });
 
 
-
-
   const springConfig = {
-    duration: 1500,
-    dampingRatio: 0.4,
+    duration: 1,
+    dampingRatio: 0.1,
   }
 
   if (level === 1) width.value = withSpring(78, springConfig);
@@ -62,6 +60,8 @@ const styles = StyleSheet.create({
     position: 'relative',
     width: 350,
     height: 23,
+    marginVertical: 40,
+    marginHorizontal: "auto"
   },
   bar: {
     borderRadius: 1,
