@@ -1,9 +1,8 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import Animated, {useAnimatedStyle, useSharedValue} from 'react-native-reanimated';
+import {StyleSheet, View} from 'react-native';
+import Animated, {useAnimatedStyle, useSharedValue, withSpring} from 'react-native-reanimated';
 import {Colors} from "@/constants/Colors";
 import {ThemedText} from "@/components/ThemedText";
-import { withSpring } from 'react-native-reanimated';
 
 
 type ProgressBarProps = {

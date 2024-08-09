@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import React from 'react';
+import {StyleSheet} from 'react-native';
 import {Button} from "@/components/button";
 import {ThemedText} from "@/components/ThemedText";
 import {Brand} from "@/components/svg";
-import { Link } from 'expo-router';
+import {Link} from 'expo-router';
 import {FlexView} from "@/components/ThemedView";
-
 
 
 const Sign = () => {

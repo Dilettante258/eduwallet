@@ -1,22 +1,16 @@
-import { TrueSheet } from "@lodev09/react-native-true-sheet"
+import {TrueSheet} from "@lodev09/react-native-true-sheet"
 import {useRef} from "react";
-import {Button, Pressable, View} from "react-native";
-import {Link, router} from "expo-router";
+import {Button, View} from "react-native";
+import {Link} from "expo-router";
 import {ThemedText} from "@/components/ThemedText";
 
 const Playground = () => {
   const sheet = useRef<TrueSheet>(null)
-
-  // Present the sheet ✅
   const present = async () => {
     await sheet.current?.present()
-    console.log('horray! sheet has been presented 💩')
   }
-
-  // Dismiss the sheet ✅
   const dismiss = async () => {
     await sheet.current?.dismiss()
-    console.log('Bye bye 👋')
   }
 
   return (

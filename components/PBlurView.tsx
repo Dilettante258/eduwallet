@@ -1,8 +1,8 @@
-import type { BlurViewProps } from "expo-blur";
-import { BlurView } from "expo-blur";
+import type {BlurViewProps} from "expo-blur";
+import {BlurView} from "expo-blur";
 import getBackgroundColor from "expo-blur/build/getBackgroundColor";
 import * as React from "react";
-import { Platform, View } from "react-native";
+import {Platform, View} from "react-native";
 
 class LegacyAndroidBlurView extends React.Component<BlurViewProps> {
   render() {

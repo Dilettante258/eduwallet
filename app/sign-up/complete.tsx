@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, Pressable} from "react-native";
+import {StyleSheet, View} from "react-native";
 import {ThemedText} from "@/components/ThemedText";
 import {CelebrationWave} from "@/components/HelloWave";
 import {FlexView} from "@/components/ThemedView";

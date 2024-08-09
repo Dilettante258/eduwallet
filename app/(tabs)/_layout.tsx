@@ -1,13 +1,12 @@
-import { Tabs } from 'expo-router';
+import {Tabs} from 'expo-router';
 import React from 'react';
-
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import {useColorScheme} from '@/hooks/useColorScheme';
 import Animated, {Easing, useAnimatedStyle, useSharedValue, withTiming} from 'react-native-reanimated';
-import { Dimensions } from 'react-native';
+import {Dimensions} from 'react-native';
 import CommonCSS from "@/constants/CommonCSS";
-const windowHeight = Dimensions.get('window').height;
 import {Tab as TabsIcon} from "@/components/svg"
+
+const windowHeight = Dimensions.get('window').height;
 
 const Test = ({ focused, ...rest}: {
   focused: boolean;

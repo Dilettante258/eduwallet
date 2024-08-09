@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import {Alert, Pressable, StyleSheet, View} from 'react-native';
-import {BackButton, Button, IconButton} from "@/components/button";
+import React, {useRef, useState} from 'react';
+import {Pressable, StyleSheet, View} from 'react-native';
+import {Button} from "@/components/button";
 import {ThemedText} from "@/components/ThemedText";
-import { Link } from 'expo-router';
+import {Link} from 'expo-router';
 import {FlexView} from "@/components/ThemedView";
 import {SecureInput} from "@/components/input";
 import Checkbox from "@/components/checkbox";
@@ -10,7 +10,7 @@ import FormItem from "@/components/FormItem";
 import {useForm} from "react-hook-form";
 import {Colors} from "@/constants/Colors";
 import {TrueSheet} from "@lodev09/react-native-true-sheet";
-import {useRef} from "react";
+
 const Step1 = () => {
   const [checked, setChecked] = useState(false);
   const [level, setLevel] = useState(1)

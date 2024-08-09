@@ -1,16 +1,10 @@
 import React, {useState} from 'react';
-import {FlatList, Image, Pressable, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Button, IconButton} from "@/components/button";
+import {FlatList, Pressable, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Button} from "@/components/button";
 import {ThemedText} from "@/components/ThemedText";
-import {Brand, Normal} from "@/components/svg";
 import {Link} from 'expo-router';
 import {FlexView} from "@/components/ThemedView";
-import Checkbox from "@/components/checkbox";
-import {ProgressBar} from "@/app/sign-up/component/ProgressBar";
 import {Colors} from "@/constants/Colors";
-
-
-
 
 
 const Step3 = () => {

@@ -1,4 +1,4 @@
-import {FlatList, Image, Pressable, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from "react";
 import QRCode from "react-qr-code";
 import {Colors} from "@/constants/Colors";

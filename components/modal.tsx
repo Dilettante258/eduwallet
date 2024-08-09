@@ -1,10 +1,5 @@
 import React, {PropsWithChildren} from "react";
-import {
-  Modal,
-  StyleSheet,
-  TouchableHighlight,
-  View
-} from "react-native";
+import {Modal, StyleSheet, TouchableHighlight, View} from "react-native";
 import {Colors} from "@/constants/Colors";
 import {ThemedText} from "@/components/ThemedText";
 import {Normal} from "@/components/svg";

@@ -1,16 +1,8 @@
-import React, {PropsWithChildren, useState} from "react";
-import {
-  Alert,
-  Modal,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View
-} from "react-native";
+import React, {useState} from "react";
+import {StyleSheet, Text, TouchableHighlight, View} from "react-native";
 import {Colors} from "@/constants/Colors";
 import {ThemedText} from "@/components/ThemedText";
 import ThemedModal from "@/components/modal";
-
 
 
 const App = () => {

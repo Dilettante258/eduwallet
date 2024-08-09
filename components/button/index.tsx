@@ -3,15 +3,15 @@ import {
   PressableProps,
   StyleProp,
   StyleSheet,
-  ViewStyle,
   TouchableOpacity,
-  TouchableOpacityProps
+  TouchableOpacityProps,
+  ViewStyle
 } from "react-native";
 import {Colors} from "@/constants/Colors";
 import React from "react";
 import {ThemedText} from "@/components/ThemedText";
 import {Normal} from "@/components/svg";
-import { router } from 'expo-router';
+import {router} from 'expo-router';
 
 type ThemeProps = {
   size?: "sm" | "md" | "lg",

@@ -1,12 +1,9 @@
 import React, {useState} from 'react';
-import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
-import {Button, IconButton} from "@/components/button";
+import {Pressable, StyleSheet, View} from 'react-native';
+import {Button} from "@/components/button";
 import {ThemedText} from "@/components/ThemedText";
-import {Brand, Normal} from "@/components/svg";
 import {Link} from 'expo-router';
 import {FlexView} from "@/components/ThemedView";
-import Checkbox from "@/components/checkbox";
-import {ProgressBar} from "@/app/sign-up/component/ProgressBar";
 import {Colors} from "@/constants/Colors";
 
 

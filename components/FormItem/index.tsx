@@ -1,14 +1,7 @@
 import React from 'react'
-import {
-  Controller,
-  ControllerProps,
-  FieldValues,
-  UseControllerProps,
-  GlobalError,
-  FieldPath
-} from 'react-hook-form'
+import {Controller, ControllerProps, FieldPath, FieldValues, GlobalError, UseControllerProps} from 'react-hook-form'
 
-import { TextStyle, View, Text, ViewStyle } from 'react-native'
+import {TextStyle, View, ViewStyle} from 'react-native'
 import {ThemedText} from "@/components/ThemedText";
 import {WarningIcon} from "@/components/svg";
 

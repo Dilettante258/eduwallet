@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import {SafeAreaView, StyleSheet, TextInput, TextInputProps, TouchableWithoutFeedback} from 'react-native';
 import {Colors} from "@/constants/Colors";
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import {ThemedText} from "@/components/ThemedText";
-
 
 
 type InputProps = {

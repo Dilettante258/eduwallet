@@ -1,14 +1,10 @@
 import React from 'react';
-import {FlatList, Image, Pressable, StyleSheet, View} from 'react-native';
+import {Image, Pressable, StyleSheet, View} from 'react-native';
 import {ThemedText} from "@/components/ThemedText";
 import {Normal} from "@/components/svg";
 import {Colors} from "@/constants/Colors";
-import {Button, IconButton} from "@/components/button";
 import {Link} from "expo-router";
 import List from "@/components/List";
-
-
-
 
 
 const AssetPage = () => {

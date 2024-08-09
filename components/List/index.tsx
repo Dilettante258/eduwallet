@@ -1,16 +1,18 @@
-import {FlatList, Pressable, View, StyleSheet, Image} from "react-native";
+import {Dimensions, Image, Pressable, StyleSheet, View} from "react-native";
 import {Button} from "@/components/button";
 import {ThemedText} from "@/components/ThemedText";
 import {Normal} from "@/components/svg";
-import React, {useCallback, useState} from "react";
+import React, {useState} from "react";
 import {Colors} from "@/constants/Colors";
 import Animated, {
+  useAnimatedProps,
+  useAnimatedStyle,
   useSharedValue,
+  withDelay,
   withSpring,
-  useAnimatedStyle, withDelay, withTiming, useAnimatedProps,
+  withTiming,
 } from 'react-native-reanimated';
 import {Input} from "@/components/input";
-import { Dimensions } from 'react-native';
 
 const windowHeight = Dimensions.get('window').height;
 

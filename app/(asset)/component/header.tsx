@@ -1,8 +1,7 @@
 import React from 'react';
-import {FlatList, Image, Pressable, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {ThemedText} from "@/components/ThemedText";
 import {BackButton} from "@/components/button";
-import {Normal} from "@/components/svg";
 
 
 export default function Header({icon, title}: {icon: React.ReactNode, title: string
