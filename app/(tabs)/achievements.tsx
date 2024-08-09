@@ -1,47 +1,35 @@
-import {Image, StyleSheet} from 'react-native';
-
-import ParallaxScrollView from '@/components/ParallaxScrollView';
+import {StyleSheet, View} from 'react-native';
 import {ThemedText} from '@/components/ThemedText';
-import {ThemedView} from '@/components/ThemedView';
-import {Link} from "expo-router";
+import {Normal} from "@/components/svg";
+import React, {useState} from "react";
+import {Input} from "@/components/input";
+import SectionList from "@/components/SectionList";
 
-export default function HomeScreen() {
+
+export default function Setting() {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-      </ThemedView>
-      <Link href="/sign-up"><ThemedText>Sign up</ThemedText></Link>
-      <Link href="/sign-up/step1"><ThemedText>Sign up/Step1</ThemedText></Link>
-      <Link href="/asset"><ThemedText>Asset</ThemedText></Link>
-      <Link href="/playground1"><ThemedText>PlayGround1</ThemedText></Link>
-      <Link href="/playground2"><ThemedText>PlayGround2</ThemedText></Link>
-    </ParallaxScrollView>
+    <View style={{flex: 1, alignItems: 'center', gap: 20}}>
+      <View style={styles.header}>
+        <Normal.Achievement/>
+        <ThemedText>Education Achievements</ThemedText>
+      </View>
+      <Input
+        placeholder="Search nft"
+      />
+      <SectionList/>
+
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    marginHorizontal: "auto"
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
+
 });

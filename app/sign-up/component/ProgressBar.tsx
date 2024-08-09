@@ -26,13 +26,13 @@ export const ProgressBar = (
 
 
   const springConfig = {
-    duration: 1,
+    duration: 1500,
     dampingRatio: 0.1,
   }
 
   if (level === 1) width.value = withSpring(78, springConfig);
   if (level === 2) width.value = withSpring(246, springConfig);
-  if (level === 3) width.value = withSpring(350, springConfig);
+  if (level === 3) width.value = withSpring(330, springConfig);
 
   return (
     <View style={styles.container}>

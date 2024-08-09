@@ -6,6 +6,7 @@ import ThemedModal from "@/components/modal";
 import React, {useState} from "react";
 import {Input} from "@/components/input";
 import {Button} from "@/components/button";
+import {Link} from "expo-router";
 
 
 const Tab = ({title, icon, onPress}: { title: string, icon: React.ReactNode, onPress: () => void }) => {
@@ -69,6 +70,9 @@ export default function Setting() {
         <Tab title='Wallet Instructions' icon={<Normal.Wallet/>} onPress={() => null}/>
         <Tab title='About Us' icon={<Normal.Issue/>} onPress={() => null}/>
       </View>
+      <Link href='/playground1' style={{marginTop: 20}}>
+        <ThemedText type="link" size='lg'>Playground!!!</ThemedText>
+      </Link>
     </View>
   );
 }

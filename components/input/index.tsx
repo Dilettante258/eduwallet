@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import {SafeAreaView, StyleSheet, TextInput, TextInputProps, TouchableWithoutFeedback} from 'react-native';
+import {SafeAreaView, StyleSheet, TextInput, TextInputProps} from 'react-native';
 import {Colors} from "@/constants/Colors";
-import {ThemedText} from "@/components/ThemedText";
 
 
 type InputProps = {
@@ -13,7 +12,7 @@ type InputProps = {
 const Input = ({defaultValue, style, ...props}: InputProps) => {
   const [value, onChangeValue] = React.useState(defaultValue??'');
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{width: "100%"}}>
       <TextInput
         style={[style,styles.input]}
         onChangeText={onChangeValue}
@@ -39,15 +38,15 @@ const SecureInput = ({defaultValue, ...props}: InputProps) => {
         placeholderTextColor={Colors.dark.textGray}
         {...props}
       />
-      <TouchableWithoutFeedback style={styles.touchable} onPress={()=>setHide(!hide)}>
-        {/*{hide ? (*/}
-        {/*  <FontAwesome6 name="eye" size={24} color="black" />) :*/}
-        {/*  (<FontAwesome6 name="eye-slash" size={24} color="black" />)}*/}
+      {/*<TouchableWithoutFeedback style={styles.touchable} onPress={()=>setHide(!hide)}>*/}
+      {/*  /!*{hide ? (*!/*/}
+      {/*  /!*  <FontAwesome6 name="eye" size={24} color="black" />) :*!/*/}
+      {/*  /!*  (<FontAwesome6 name="eye-slash" size={24} color="black" />)}*!/*/}
 
-        {hide ? (
-            <ThemedText>1111111111</ThemedText>) :
-          (<ThemedText>2222222</ThemedText>)}
-      </TouchableWithoutFeedback>
+      {/*  /!*{hide ? (*!/*/}
+      {/*  /!*    <ThemedText>1111111111</ThemedText>) :*!/*/}
+      {/*  /!*  (<ThemedText>2222222</ThemedText>)}*!/*/}
+      {/*</TouchableWithoutFeedback>*/}
     </SafeAreaView>
   );
 };

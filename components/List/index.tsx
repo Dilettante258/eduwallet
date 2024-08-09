@@ -108,25 +108,6 @@ export default function List() {
   );
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 type asset = {
   icon: any,
   name: string,
