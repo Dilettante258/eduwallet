@@ -1,11 +1,14 @@
 import {Dimensions, Image, Pressable, StyleSheet, View} from "react-native";
-import {Button} from "@/components/button";
 import {ThemedText} from "@/components/ThemedText";
 import {Normal} from "@/components/svg";
 import React, {useState} from "react";
 import {Colors} from "@/constants/Colors";
 import Animated, {
-  useAnimatedProps,
+  interpolateColor,
+  SlideInLeft,
+  SlideInRight,
+  SlideOutLeft,
+  SlideOutRight,
   useAnimatedStyle,
   useSharedValue,
   withDelay,
@@ -15,12 +18,17 @@ import Animated, {
 import {Input} from "@/components/input";
 
 const windowHeight = Dimensions.get('window').height;
+const windowWidth = Dimensions.get('window').width;
+
 
 
 export default function List() {
+  const [tab, setTab] = useState<'assets' | 'nft'>('assets')
   const [viewAll, setViewAll] = useState<boolean>(false);
   const initialHeight = windowHeight - 520;
   const height = useSharedValue(initialHeight);
+  const progress = useSharedValue(0);
+
 
   const handlePress = () => {
     setViewAll(!viewAll);
@@ -37,9 +45,60 @@ export default function List() {
   const searchStyles = useAnimatedStyle(() => (
     {
       overflow: 'hidden',
-      height: withDelay(150, withTiming(viewAll ? 60 : 0))
+      height: withDelay(150, withTiming(viewAll ? 60 : 0)),
+      // height: 150
     }
   ));
+
+  const button1Styles = useAnimatedStyle(() => {
+    return (
+      {
+        borderWidth: 1,
+        borderColor: interpolateColor(
+          progress.value,
+          [0, 1],
+          ['#A5A5A5', '#121BDF'],
+          'RGB', {
+            gamma: 10,
+          }
+        ),
+        backgroundColor: interpolateColor(
+          progress.value,
+          [0, 1],
+          ['rgba(0,0,0,0)', '#121BDF'],
+          'RGB',
+          {
+            gamma: 10,
+          }
+        ),
+      }
+    )
+  });
+
+  const button2Styles = useAnimatedStyle(() => {
+    return (
+      {
+        borderWidth: 1,
+        borderColor: interpolateColor(
+          progress.value,
+          [0, 1],
+          ['#121BDF', '#A5A5A5'],
+          'RGB', {
+            gamma: 10,
+          }
+        ),
+        backgroundColor: interpolateColor(
+          progress.value,
+          [0, 1],
+          ['#121BDF', 'rgba(0,0,0,0)'],
+          'RGB',
+          {
+            gamma: 10,
+          }
+        ),
+      }
+    )
+  });
 
   const Search = () => {
     return (
@@ -67,44 +126,61 @@ export default function List() {
     )
   }
 
-  const UpSvg = Animated.createAnimatedComponent(Normal.Up);
-
-  const animatedSvgProps = useAnimatedProps(() => {
-    return {
-      rotation: viewAll ? 180 : 0,
-      origin: [8,8],
-      fillOpacity: 0
-    };
-  });
-
-
 
   return (
     <Animated.View
       style={[styles.assetContainer, animatedStyles]}>
       <View style={[styles.row,{gap: 8, alignItems: "center"}]}>
-        <Button size='sm' textSize='xs'>
-          Assets
-        </Button>
-        <Button size='sm' variant='ghost' textSize='xs'>
-          NFT
+        <Pressable onPress={() => {
+          setTab('assets');
+          progress.value = withTiming(tab == 'assets' ? 1 : 0, {duration: 500});
+        }}>
+          <Animated.View style={[styles.button, button1Styles]}>
+            <ThemedText size='xs'>Assets</ThemedText>
+          </Animated.View>
+        </Pressable>
 
-        </Button>
+        <Pressable onPress={() => {
+          setTab('nft');
+          progress.value = withTiming(tab == 'nft' ? 1 : 0, {duration: 500});
+        }}>
+          <Animated.View style={[styles.button, button2Styles]}>
+            <ThemedText size='xs'>NFT</ThemedText>
+          </Animated.View>
+        </Pressable>
+
         <Pressable
           onPress={handlePress}
           style={{display: "flex",flexDirection: "row",gap: 4, alignSelf: "center",marginLeft: "auto"}}
         >
           <ThemedText size='sm'>View All</ThemedText>
-          <UpSvg {...animatedSvgProps} />
+          <Normal.Up rotation={viewAll ? 180 : 0} origin={[8, 8]}/>
         </Pressable>
       </View>
-      <Animated.FlatList data={assetsList} renderItem={AssetItem}
-                ListHeaderComponent={Search}
-                ListFooterComponent={Footer}
-                ListEmptyComponent={Empty}
-                initialNumToRender={5}
-                ItemSeparatorComponent={Separator}
-      />
+      {tab == 'assets' ? (
+        <Animated.FlatList data={assetsList} renderItem={AssetItem}
+                           ListHeaderComponent={Search}
+                           ListFooterComponent={assetsList.length > 0 ? Footer : undefined}
+                           ListEmptyComponent={Empty}
+                           initialNumToRender={5}
+                           ItemSeparatorComponent={Separator}
+                           entering={SlideInLeft} exiting={SlideOutLeft}
+        />
+      ) : (
+        <Animated.View entering={SlideInRight} exiting={SlideOutRight}>
+          <Animated.FlatList data={NFTList} renderItem={NFTItem}
+                             ListHeaderComponent={Search}
+                             ListFooterComponent={NFTList.length > 0 ? Footer : undefined}
+                             ListEmptyComponent={Empty}
+                             initialNumToRender={5}
+                             ItemSeparatorComponent={Separator}
+            //
+          />
+
+        </Animated.View>
+
+      )
+      }
     </Animated.View>
   );
 }
@@ -176,6 +252,22 @@ const assetsList = [
   },
 ]
 
+type NFT = {
+  avatar: any,
+  title: string,
+  number: number
+}
+
+const testItem = {
+  avatar: require("@/assets/nft/avatar.png"),
+  title: "Investing in NFTs: Trends, Risks, and Opportunities",
+  number: 19
+}
+
+const NFTList = [
+  testItem, testItem, testItem, testItem, testItem, testItem
+]
+
 const AssetItem = ({item}: {item: asset}) => {
   return (
     <View style={{
@@ -212,15 +304,40 @@ const AssetItem = ({item}: {item: asset}) => {
   )
 }
 
+const NFTItem = ({item}: { item: NFT }) => {
+  return (
+    <View style={{
+      display: "flex",
+      flexDirection: "row",
+      // justifyContent: "space-between",
+      // alignItems: "center",
+      // width: "100%",
+      paddingVertical: 12,
+      // height: 64
+    }}>
+      <Image source={item.avatar} style={{width: 40, height: 40, marginRight: 8, borderRadius: 50}}/>
+      <View>
+        <ThemedText size='sm' style={{width: "60%"}}>{item.title}</ThemedText>
+      </View>
+      <View>
+        <ThemedText size='sm' style={{width: "10%"}}>{item.number}</ThemedText>
+      </View>
+    </View>
+  )
+}
+
 const Empty = () => {
   return (
     <View style={{
-      marginHorizontal: "auto",
+      flex: 1,
+      width: windowWidth - 72,
+      height: 200,
       justifyContent: "center",
       alignItems: "center",
       zIndex: 10,
     }}>
-      <ThemedText type='muted'>You don’t have any assets yet~</ThemedText>
+      <ThemedText type='muted' style={{textAlign: "center", textAlignVertical: "center"}}>You don’t have any assets
+        yet~</ThemedText>
     </View>
   )
 }
@@ -246,6 +363,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "flex-start",
     gap: 16,
+    overflow: "hidden"
   },
   inlineRow: {
     display: "flex",
@@ -258,5 +376,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
+  },
+  button: {
+    borderRadius: 100,
+    alignItems: "center",
+    justifyContent: "center",
+    display: "flex",
+    alignContent: "center",
+    width: 65,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
   },
 })

@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   sm: {
-    width: 63,
+    width: 65,
     paddingHorizontal: 12,
     paddingVertical: 4,
   },
@@ -119,6 +119,8 @@ const styles = StyleSheet.create({
     height: 54,
   },
   solid: {
+    borderWidth: 1,
+    borderColor: Colors.dark.primary,
     backgroundColor: Colors.dark.primary,
   },
   ghost: {
@@ -137,7 +139,7 @@ const styles = StyleSheet.create({
 
 const IconButtonStyles = StyleSheet.create({
   sm: {
-    width: 54,
+    width: 63,
     height: 54,
   },
   md: {
