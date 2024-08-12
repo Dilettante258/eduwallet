@@ -46,6 +46,7 @@ export default function List() {
       <Animated.View style={[searchStyles]}>
         <Input
           placeholder='Search asset'
+          icon={<Normal.Search/>}
         />
       </Animated.View>
     )

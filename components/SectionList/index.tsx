@@ -1,114 +1,70 @@
-import {FlatList, Image, StyleSheet, View} from "react-native";
+import {FlatList, Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {ThemedText} from "@/components/ThemedText";
 import {Colors} from "@/constants/Colors";
+import ThemedModal from "@/components/modal";
+import React, {useState} from "react";
 
 type ItemProps = {
-  time: string,
-  data: {
-    thumbnail: any,
-    cover: any,
-    NTF: string,
-    course: string
-  }[]
+  thumbnail: any,
+  cover: any,
+  NTF: string,
+  course: string
 }
 
-const data = [
-  {
-    time: 'Jun 6, 2024',
-    data: [
-      {
-        thumbnail: require("@/assets/achievements/1_sm.png"),
-        cover: require("@/assets/achievements/1.png"),
-        NTF: 'Blue Pig',
-        course: 'NFT Fundamentals: From Creation to Collection'
-      },
-    ]
-  },
-  {
-    time: 'Jun 5, 2024',
-    data: [
-      {
-        thumbnail: require("@/assets/achievements/2.png"),
-        cover: require("@/assets/achievements/1.png"),
-        NTF: 'Crying Monkey',
-        course: 'Mastering NFT Art: Techniques and Market Insights'
-      },
-      {
-        thumbnail: require("@/assets/achievements/3.png"),
-        cover: require("@/assets/achievements/1.png"),
-        NTF: 'Angry Monster',
-        course: 'Blockchain and NFTs: A Comprehensive Guide'
-      },
-      {
-        thumbnail: require("@/assets/achievements/4.png"),
-        cover: require("@/assets/achievements/1.png"),
-        NTF: 'Super Penguin 2450',
-        course: 'Investing in NFTs: Trends, Risks, and Opportunities'
-      },
-    ]
-  },
-  {
-    time: 'Jun 5, 2024',
-    data: [
-      {
-        thumbnail: require("@/assets/achievements/5.png"),
-        cover: require("@/assets/achievements/1.png"),
-        NTF: 'Digital Dreamscapes',
-        course: 'Creating and Minting NFTs: A Step-by-Step Workshop'
-      },
-    ]
-  },
-  {
-    time: 'Jun 3, 2024',
-    data: [
-      {
-        thumbnail: require("@/assets/achievements/6.png"),
-        cover: require("@/assets/achievements/1.png"),
-        NTF: 'Pixel Portfolio',
-        course: 'Mastering NFT Art: Techniques and Market Insights'
-      },
-    ]
-  },
-  {
-    time: 'Jun 3, 2024',
-    data: [
-      {
-        thumbnail: require("@/assets/achievements/6.png"),
-        cover: require("@/assets/achievements/1.png"),
-        NTF: 'Pixel Portfolio',
-        course: 'Mastering NFT Art: Techniques and Market Insights'
-      },
-    ]
-  },
-  {
-    time: 'Jun 3, 2024',
-    data: [
-      {
-        thumbnail: require("@/assets/achievements/6.png"),
-        cover: require("@/assets/achievements/1.png"),
-        NTF: 'Pixel Portfolio',
-        course: 'Mastering NFT Art: Techniques and Market Insights'
-      },
-    ]
-  },
-]
+type SectionProps = {
+  time: string,
+  data: ItemProps[]
+}
 
 
-const Item = ({item}: { item: ItemProps }) => {
+const Item = ({item, time}: { item: ItemProps, time: string }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  return (
+    <>
+      <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <View style={styles.card}>
+          <Image source={item.thumbnail} style={styles.thumbnail}/>
+          <View style={styles.description}>
+            <ThemedText size='sm'>{item.NTF}</ThemedText>
+            <ThemedText type='muted' style={{fontSize: 12, lineHeight: 15}}>{item.course}</ThemedText>
+          </View>
+        </View>
+      </TouchableOpacity>
+      <ThemedModal modalVisible={modalVisible} setModalVisible={setModalVisible}>
+        <Image source={item.cover} style={{width: "100%", borderRadius: 12}}/>
+        <View>
+          <ThemedText type='muted' style={{fontSize: 14, lineHeight: 17.5}}>
+            NFT Name
+          </ThemedText>
+          <ThemedText>{item.NTF}</ThemedText>
+        </View>
+        <View>
+          <ThemedText type='muted' style={{fontSize: 14, lineHeight: 17.5}}>
+            NFT Name
+          </ThemedText>
+          <ThemedText>{time}</ThemedText>
+        </View>
+        <View>
+          <ThemedText type='muted' style={{fontSize: 14, lineHeight: 17.5}}>
+            NFT Name
+          </ThemedText>
+          <ThemedText>{item.course}</ThemedText>
+        </View>
+      </ThemedModal>
+    </>
+  )
+}
+
+
+const Section = ({item}: { item: SectionProps }) => {
   return (
     <View style={styles.section}>
       <View style={styles.time}>
         <ThemedText type='medium'>{item.time}</ThemedText>
       </View>
       <View style={{gap: 8}}>
-        {item.data.map((item, index) => (
-          <View key={index} style={styles.card}>
-            <Image source={item.thumbnail} style={styles.thumbnail}/>
-            <View style={styles.description}>
-              <ThemedText size='sm'>{item.NTF}</ThemedText>
-              <ThemedText type='muted' style={{fontSize: 12, lineHeight: 15}}>{item.course}</ThemedText>
-            </View>
-          </View>
+        {item.data.map((data, index) => (
+          <Item item={data} time={item.time} key={index}/>
         ))}
       </View>
     </View>
@@ -116,12 +72,11 @@ const Item = ({item}: { item: ItemProps }) => {
 }
 
 
-export default function SectionList() {
-
+export default function SectionList({data}: { data: SectionProps[] }) {
   return (
     <FlatList
       data={data}
-      renderItem={Item}/>
+      renderItem={Section}/>
   )
 }
 

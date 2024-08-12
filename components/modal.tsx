@@ -5,7 +5,7 @@ import {ThemedText} from "@/components/ThemedText";
 import {Normal} from "@/components/svg";
 
 type Props = PropsWithChildren<{
-  title: string,
+  title?: string,
   modalVisible: boolean,
   setModalVisible: React.Dispatch<React.SetStateAction<boolean>>
 }>
@@ -24,7 +24,7 @@ export default function ThemedModal ({title ,modalVisible, setModalVisible,child
     >
       <View style={styles.View}>
         <View style={styles.modalView}>
-          <ThemedText size='lg' type='medium'>{title}</ThemedText>
+          {title && <ThemedText size='lg' type='medium'>{title}</ThemedText>}
           <View style={styles.content}>
             {children}
           </View>
@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.dark.borderGray,
     padding: 16,
-    gap: 24,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -80,6 +79,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderTopWidth: 1,
     borderColor: Colors.dark.borderGray,
+    marginTop: 24
   },
   content: {
     gap: 24,

@@ -251,6 +251,38 @@ const Achievement = (props: SvgProps) => (
   </Svg>
 )
 
+const Search = (props: SvgProps) => (
+  <Svg
+    width={16}
+    height={17}
+    fill="none"
+    {...props}
+  >
+    <Path
+      fill="#A5A5A5"
+      fillRule="evenodd"
+      d="m10.873 10.433 3.6 3.593a.667.667 0 0 1 0 .947.667.667 0 0 1-.947 0l-3.593-3.6A5.28 5.28 0 0 1 6.666 12.5 5.333 5.333 0 1 1 12 7.166a5.28 5.28 0 0 1-1.127 3.267ZM6.666 3.166a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"
+      clipRule="evenodd"
+    />
+  </Svg>
+)
+
+const Clear = (props: SvgProps) => (
+  <Svg
+    width={16}
+    height={17}
+    fill="none"
+    {...props}
+  >
+    <Path
+      fill="#A5A5A5"
+      fillRule="evenodd"
+      d="M3.368 3.868a6.667 6.667 0 0 1 9.345-.082 6.667 6.667 0 0 1-9.427 9.427 6.667 6.667 0 0 1 .082-9.345Zm7.67 6.999a.667.667 0 0 0-.198-.474L8.94 8.5l1.9-1.893a.67.67 0 0 0-.947-.947L8 7.56l-1.893-1.9a.67.67 0 0 0-.947.947L7.06 8.5l-1.9 1.893a.667.667 0 0 0 .473 1.14.667.667 0 0 0 .474-.193L8 9.44l1.893 1.9a.667.667 0 0 0 .474.193.667.667 0 0 0 .67-.666Z"
+      clipRule="evenodd"
+    />
+  </Svg>
+)
+
 export {
   LeftArrow,
   WarningIcon,
@@ -268,4 +300,6 @@ export {
   RightArrow,
   Close,
   Achievement,
+  Search,
+  Clear,
 }

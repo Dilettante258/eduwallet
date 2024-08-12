@@ -63,7 +63,6 @@ const AssetPage = () => {
         </Link>
       </View>
       <List />
-      {/*<Link href='/playground1'><ThemedText>Playground</ThemedText></Link>*/}
     </View>
   );
 };
