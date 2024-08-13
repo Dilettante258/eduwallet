@@ -114,11 +114,11 @@ const Step1 = () => {
                 <ThemedText>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam blandit lorem molestie metus feugiat faucibus. Proin facilisis risus sit amet metus rutrum cursus. Nulla vitae ornare tortor. Nunc scelerisque tellus eu lacus pharetra, ac cursus ex porta. Vestibulum suscipit magna vel iaculis mollis. Aenean iaculis lectus vitae eleifend dignissim. Maecenas tincidunt hendrerit purus eget imperdiet. Aliquam erat volutpat. Nam vitae tellus luctus, pharetra nibh non, molestie ante. Aliquam ornare sollicitudin leo eu tempus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas pellentesque tellus eget mattis luctus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec scelerisque ultrices nisl sit amet accumsan. Donec consequat purus dictum orci ullamcorper molestie.
                 </ThemedText>
-                <Button onPress={dismiss}>
+
+                <Button style={{marginTop: 24}} onPress={dismiss}>
                   Acknowledge
                 </Button>
               </View>
-
             </TrueSheet>
 
           </Checkbox>

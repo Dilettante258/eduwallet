@@ -1,13 +1,16 @@
 import React from 'react';
-import {Image, Pressable, StyleSheet, View} from 'react-native';
+import {Image, Pressable, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {ThemedText} from "@/components/ThemedText";
 import {Normal} from "@/components/svg";
 import {Colors} from "@/constants/Colors";
 import {Link} from "expo-router";
 import List from "@/components/List";
+import Animated, {FlipInEasyX, FlipOutEasyX} from "react-native-reanimated";
 
 
 const AssetPage = () => {
+
+
   return (
     <View style={styles.container}>
       <View style={[styles.row,{paddingBottom: 40}]}>
@@ -23,11 +26,13 @@ const AssetPage = () => {
           display: "flex",
           justifyContent: "flex-end",
         }}>
-          <Normal.Clock length={32}/>
+          <Link href="/transaction">
+            <Normal.Clock length={32}/>
+          </Link>
           <Normal.Scan length={32}/>
         </View>
       </View>
-      <View style={styles.balance}>
+      <Animated.View style={styles.balance} entering={FlipInEasyX} exiting={FlipOutEasyX}>
         <ThemedText style={{fontSize: 40, lineHeight: 60}} type="bold">$0</ThemedText>
         <ThemedText type="muted">Your Balance</ThemedText>
         <View style={{
@@ -41,20 +46,24 @@ const AssetPage = () => {
           <ThemedText type="muted">Profit</ThemedText>
           <ThemedText size='sm' type='medium'>$0</ThemedText>
         </View>
-      </View>
+      </Animated.View>
       <View style={styles.buttonContainer}>
-        <View style={styles.buttonWarp}>
-          <View style={styles.buttonIcon}>
-            <Normal.LeftArrow color={Colors.dark.fill} transform="rotate(135 7 6)"/>
-          </View>
-          <ThemedText size='sm' type='medium'>Transfer</ThemedText>
-        </View>
-        <View style={[styles.buttonWarp,{backgroundColor: '#2AE9B9'}]}>
-          <View style={styles.buttonIcon}>
-            <Normal.LeftArrow color={Colors.dark.fill} transform="rotate(-45 7 6)"/>
-          </View>
-          <ThemedText size='sm' style={{color: Colors.dark.fill}} type='medium'>Request</ThemedText>
-        </View>
+        <Link href='/transfer' asChild>
+          <TouchableOpacity style={buttonStyle.buttonWarp1} activeOpacity={0.85}>
+            <View style={styles.buttonIcon}>
+              <Normal.LeftArrow color={Colors.dark.fill} transform="rotate(135 7 6)"/>
+            </View>
+            <ThemedText size='sm' type='medium'>Transfer</ThemedText>
+          </TouchableOpacity>
+        </Link>
+        <Link href='/request' asChild>
+          <TouchableOpacity style={buttonStyle.buttonWarp2} activeOpacity={0.85}>
+            <View style={styles.buttonIcon}>
+              <Normal.LeftArrow color={Colors.dark.fill} transform="rotate(-45 7 6)"/>
+            </View>
+            <ThemedText size='sm' style={{color: Colors.dark.fill}} type='medium'>Request</ThemedText>
+          </TouchableOpacity>
+        </Link>
         <Link href='/receive-invalid' asChild>
           <Pressable style={{width: 54, height: 54, backgroundColor: Colors.dark.bgGray, borderRadius: 100,alignItems: "center",
             justifyContent: "center",}} >
@@ -102,7 +111,7 @@ const styles = StyleSheet.create({
     gap: 16,
     paddingVertical: 24,
   },
-  buttonWarp: {
+  button: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -113,7 +122,6 @@ const styles = StyleSheet.create({
     paddingLeft: 60,
     paddingRight: 22,
     borderRadius: 100,
-    backgroundColor: '#121BDF',
     position: "relative",
   },
   buttonIcon: {
@@ -131,5 +139,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
+
+
+const buttonStyle = StyleSheet.create({
+  buttonWarp1: {
+    ...styles.button,
+    backgroundColor: '#121BDF',
+  },
+  buttonWarp2: {
+    ...styles.button,
+    backgroundColor: '#2AE9B9',
+  },
+})
 
 export default AssetPage;

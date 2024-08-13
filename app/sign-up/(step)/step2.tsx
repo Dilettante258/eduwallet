@@ -43,7 +43,6 @@ const Step2 = () => {
         <Animated.View style={{
           ...StyleSheet.absoluteFillObject,
           flex: 1,
-
           opacity
         }}
         >

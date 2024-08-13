@@ -31,7 +31,7 @@ const Input = forwardRef<TextInputRef, InputProps>(
     }
 
   return (
-    <SafeAreaView style={[style, styles.container, {width: "100%"}]}>
+    <SafeAreaView style={[styles.container, style, {width: "100%"}]}>
       {icon}
       <TextInput
         style={[
@@ -58,7 +58,7 @@ const SecureInput = ({defaultValue, ...props}: InputProps) => {
     <SafeAreaView style={[styles.container, {borderColor: 'transparent', flexDirection: 'row'}]}>
       <TextInput
         secureTextEntry={hide}
-        style={[styles.input]}
+        style={styles.input}
         onChangeText={onChangeValue}
         autoCapitalize="none"
         value={value}
@@ -96,7 +96,6 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     marginVertical: 4,
     alignItems: 'center',
-
   },
   input: {
     color: 'white',

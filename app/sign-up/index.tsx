@@ -24,7 +24,7 @@ const Sign = () => {
             Create a wallet
           </Button>
         </Link>
-        <Link href={"#"} asChild>
+        <Link href="/sign-up/importPage" asChild>
           <Button size="lg" variant="ghost" style={{width: 350}}>
             Import wallet
           </Button>

@@ -16,7 +16,6 @@ export default function Header({icon, title}: {icon: React.ReactNode, title: str
           {title}
         </ThemedText>
       </View>
-
     </View>
   )
 }
@@ -27,7 +26,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginHorizontal: 20,
     marginTop: 40,
-    marginBottom: 20,
+    marginBottom: 40,
     position: "relative",
     justifyContent: "center",
     height: 54,

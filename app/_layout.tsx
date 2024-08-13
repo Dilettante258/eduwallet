@@ -27,14 +27,18 @@ export default function RootLayout() {
   }, [loaded, error]);
 
   if (!loaded && !error) {
-    return <Loading />
+    return <Loading/>
   }
 
   return (
-    <ThemeProvider value={(colorScheme === 'dark'||true) ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={(colorScheme === 'dark' || true) ? DarkTheme : DefaultTheme}>
       <Stack initialRouteName="(tabs)" screenOptions={{}}>
-        <Stack.Screen name="playground1" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="playground1" options={{headerShown: false}}/>
+        <Stack.Screen name="(tabs)" options={{
+          headerShown: false,
+          animationTypeForReplace: 'pop',
+          animation: 'slide_from_right',
+        }}/>
         <Stack.Screen name="sign-up/index" options={
           {
             title: "Sign Up",
@@ -47,7 +51,19 @@ export default function RootLayout() {
             animation: 'slide_from_right',
             headerShown: false,
           }}/>
-        <Stack.Screen name="+not-found" options={{ headerShown: false }}/>
+        <Stack.Screen name="sign-up/importPage" options={
+          {
+            title: "Import Account",
+            animation: 'slide_from_right',
+            headerShown: false,
+          }}/>
+        <Stack.Screen name="sign-up/complete"
+                      options={{
+                        animation: 'slide_from_right',
+                        headerShown: false
+                      }}/>
+        <Stack.Screen name="(asset)" options={{headerShown: false, animation: 'slide_from_right',}}/>
+        <Stack.Screen name="+not-found" options={{headerShown: false}}/>
       </Stack>
     </ThemeProvider>
   );

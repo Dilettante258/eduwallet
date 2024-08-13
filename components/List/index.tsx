@@ -1,4 +1,4 @@
-import {Dimensions, Image, Pressable, StyleSheet, View} from "react-native";
+import {Dimensions, Image, Pressable, StyleSheet, TouchableOpacity, View} from "react-native";
 import {ThemedText} from "@/components/ThemedText";
 import {Normal} from "@/components/svg";
 import React, {useState} from "react";
@@ -27,7 +27,8 @@ export default function List() {
   const [viewAll, setViewAll] = useState<boolean>(false);
   const initialHeight = windowHeight - 520;
   const height = useSharedValue(initialHeight);
-  const progress = useSharedValue(0);
+
+  const progress = useSharedValue(1);
 
 
   const handlePress = () => {
@@ -127,23 +128,28 @@ export default function List() {
   }
 
 
+  const AssetPressed = () => {
+    setTab('assets');
+    progress.value = withTiming(1, {duration: 500});
+  }
+
+  const NFTPressed = () => {
+    setTab('nft');
+    progress.value = withTiming(0, {duration: 500})
+  }
+
+
   return (
     <Animated.View
       style={[styles.assetContainer, animatedStyles]}>
       <View style={[styles.row,{gap: 8, alignItems: "center"}]}>
-        <Pressable onPress={() => {
-          setTab('assets');
-          progress.value = withTiming(tab == 'assets' ? 1 : 0, {duration: 500});
-        }}>
+        <Pressable onPress={AssetPressed}>
           <Animated.View style={[styles.button, button1Styles]}>
             <ThemedText size='xs'>Assets</ThemedText>
           </Animated.View>
         </Pressable>
 
-        <Pressable onPress={() => {
-          setTab('nft');
-          progress.value = withTiming(tab == 'nft' ? 1 : 0, {duration: 500});
-        }}>
+        <Pressable onPress={NFTPressed}>
           <Animated.View style={[styles.button, button2Styles]}>
             <ThemedText size='xs'>NFT</ThemedText>
           </Animated.View>
@@ -306,23 +312,21 @@ const AssetItem = ({item}: {item: asset}) => {
 
 const NFTItem = ({item}: { item: NFT }) => {
   return (
-    <View style={{
+    <TouchableOpacity style={{
       display: "flex",
       flexDirection: "row",
-      // justifyContent: "space-between",
-      // alignItems: "center",
-      // width: "100%",
+      justifyContent: "space-between",
+      alignItems: "center",
+      width: "100%",
       paddingVertical: 12,
       // height: 64
     }}>
       <Image source={item.avatar} style={{width: 40, height: 40, marginRight: 8, borderRadius: 50}}/>
-      <View>
-        <ThemedText size='sm' style={{width: "60%"}}>{item.title}</ThemedText>
+      <View style={{flex: 1, justifyContent: "space-between", flexDirection: "row", gap: 8}}>
+        <ThemedText size='sm'>{item.title}</ThemedText>
+        <ThemedText size='sm'>{item.number}</ThemedText>
       </View>
-      <View>
-        <ThemedText size='sm' style={{width: "10%"}}>{item.number}</ThemedText>
-      </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 
@@ -336,13 +340,14 @@ const Empty = () => {
       alignItems: "center",
       zIndex: 10,
     }}>
-      <ThemedText type='muted' style={{textAlign: "center", textAlignVertical: "center"}}>You don’t have any assets
-        yet~</ThemedText>
+      <ThemedText type='muted' style={{textAlign: "center", textAlignVertical: "center"}}>
+        You don’t have any assets yet~
+      </ThemedText>
     </View>
   )
 }
 
-const Separator = () => {
+export const Separator = () => {
   return (
     <View style={{width: "100%", height: 1, backgroundColor: Colors.dark.textGray}}/>
   )

@@ -129,9 +129,37 @@ const BlackBrand = ({length, ...props}: SvgComponentProps) => (
   </Svg>
 )
 
+const Gray = (props: SvgProps) => (
+  <Svg
+    width={16}
+    height={17}
+    viewBox="0 0 16 17"
+    fill="none"
+    {...props}
+  >
+    <Path
+      fill="#A5A5A5"
+      d="m1.8 5.76 6.069 8.446c.046.064.144.031.144-.048v-6.07m6.2-2.327-6.069 8.445C8.1 14.27 8 14.237 8 14.158v-6.07"
+    />
+    <Path
+      stroke="#000"
+      strokeLinecap="round"
+      strokeWidth={0.85}
+      d="m1.8 5.76 6.069 8.446c.046.064.144.031.144-.048v-6.07m6.2-2.327-6.069 8.445C8.1 14.27 8 14.237 8 14.158v-6.07"
+    />
+    <Path
+      fill="#A5A5A5"
+      stroke="#000"
+      strokeWidth={0.85}
+      d="m2.017 4.741 4.908-1.923a2.943 2.943 0 0 1 2.15 0l4.908 1.923c.513.202.513.943 0 1.144L9.075 7.81a2.943 2.943 0 0 1-2.15 0L2.017 5.885c-.513-.2-.513-.942 0-1.144Z"
+    />
+  </Svg>
+)
+
 export {
   TransparentBrand,
   BrandWhiteEdge,
   BrandBlackEdge,
-  BlackBrand
+  BlackBrand,
+  Gray
 }

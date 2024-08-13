@@ -1,6 +1,5 @@
 import {Tabs} from 'expo-router';
 import React from 'react';
-import {useColorScheme} from '@/hooks/useColorScheme';
 import Animated, {Easing, useAnimatedStyle, useSharedValue, withTiming} from 'react-native-reanimated';
 import {Dimensions} from 'react-native';
 import CommonCSS from "@/constants/CommonCSS";
@@ -42,7 +41,6 @@ const Test = ({ focused, ...rest}: {
 
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
   return (
     <Tabs
       sceneContainerStyle={CommonCSS.screen}
@@ -70,6 +68,7 @@ export default function TabLayout() {
         tabBarLabel: ({focused,...rest})=> <Test focused={focused}/>,
         tabBarActiveTintColor: '#1C1C1C',
         headerShown: false,
+
       }}>
       <Tabs.Screen
         name="index"
