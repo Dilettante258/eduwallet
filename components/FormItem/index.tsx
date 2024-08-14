@@ -3,12 +3,14 @@ import {Controller, ControllerProps, FieldPath, FieldValues, GlobalError, UseCon
 
 import {TextStyle, View, ViewStyle} from 'react-native'
 import {ThemedText} from "@/components/ThemedText";
-import {WarningIcon} from "@/components/svg";
+import {Normal} from "@/components/svg";
 
 type FormItemProps<T extends FieldValues, TName extends FieldPath<T>> = {
   label?: string
+  isDirty?: boolean
   required?: boolean
   errors?: GlobalError
+  validMessage?: string
   style?: ViewStyle
   labelStyle?: TextStyle
   border?: boolean
@@ -20,11 +22,13 @@ const FormItem = <T extends FieldValues, TName extends FieldPath<T>>(
 ) => {
   const {
     name,
+    isDirty,
     control,
     rules,
     label,
     required,
     errors,
+    validMessage,
     style = {},
     labelStyle = {},
     border = true,
@@ -58,7 +62,7 @@ const FormItem = <T extends FieldValues, TName extends FieldPath<T>>(
             gap: 4
           }}
         >
-          <WarningIcon />
+          <Normal.WarningIcon/>
           <ThemedText
             type='error'
             size='xxs'
@@ -68,21 +72,24 @@ const FormItem = <T extends FieldValues, TName extends FieldPath<T>>(
         </View>
         )}
 
-      {/*<View*/}
-      {/*  style={{*/}
-      {/*    borderWidth: 1,*/}
-      {/*    ...(!errors*/}
-      {/*      ? {*/}
-      {/*        borderColor: border ? '#B3BAC1' : 'transparent'*/}
-      {/*      }*/}
-      {/*      : {*/}
-      {/*        borderColor: border ? '#D52D0B' : 'transparent'*/}
-      {/*      })*/}
-      {/*  }}*/}
-      {/*>*/}
-
-      {/*</View>*/}
-
+      {validMessage && !errors && isDirty && (
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 4
+          }}
+        >
+          <Normal.OK/>
+          <ThemedText
+            type='link'
+            size='xxs'
+          >
+            {validMessage}
+          </ThemedText>
+        </View>
+      )}
     </View>
   )
 }

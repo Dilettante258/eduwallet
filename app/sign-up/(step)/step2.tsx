@@ -89,7 +89,7 @@ const NumberList = ({data}: { data: string[] }) => {
     <View style={{display: "flex", width: "95%", gap: 4}}>
       {
         data.map((item, index) => (
-          <View style={{display: "flex", flexDirection: "row"}}>
+          <View style={{display: "flex", flexDirection: "row"}} key={index}>
             <View style={{width: 12, marginRight: 4}}>
               <ThemedText size='sm' style={{textAlign: 'right'}}>{index + 1}.</ThemedText>
             </View>

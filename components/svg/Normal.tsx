@@ -34,6 +34,23 @@ const WarningIcon = ({length, color, ...props}: ColorSvgProps)  => (
   </Svg>
 )
 
+const OK = (props: SvgProps) => (
+  <Svg
+    width={16}
+    height={16}
+    viewBox="0 0 16 16"
+    fill="none"
+    {...props}
+  >
+    <Path
+      fill="#2AE9B9"
+      fillRule="evenodd"
+      d="M1.333 8a6.667 6.667 0 1 1 13.333 0A6.667 6.667 0 0 1 1.333 8Zm5.807 2.473 4-4a.67.67 0 1 0-.947-.947L6.668 9.06l-.86-.866a.67.67 0 0 0-.947.946l1.333 1.334a.667.667 0 0 0 .947 0Z"
+      clipRule="evenodd"
+    />
+  </Svg>
+)
+
 const LockIcon = ({length, ...props}: SvgComponentProps) => (
   <Svg
     width={length??24}
@@ -316,6 +333,7 @@ const Request = (props: SvgProps) => (
 export {
   LeftArrow,
   WarningIcon,
+  OK,
   LockIcon,
   Clock,
   Scan,

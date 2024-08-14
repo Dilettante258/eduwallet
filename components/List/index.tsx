@@ -16,6 +16,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import {Input} from "@/components/input";
+import {Link} from "expo-router";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -312,21 +313,23 @@ const AssetItem = ({item}: {item: asset}) => {
 
 const NFTItem = ({item}: { item: NFT }) => {
   return (
-    <TouchableOpacity style={{
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      width: "100%",
-      paddingVertical: 12,
-      // height: 64
-    }}>
-      <Image source={item.avatar} style={{width: 40, height: 40, marginRight: 8, borderRadius: 50}}/>
-      <View style={{flex: 1, justifyContent: "space-between", flexDirection: "row", gap: 8}}>
-        <ThemedText size='sm'>{item.title}</ThemedText>
-        <ThemedText size='sm'>{item.number}</ThemedText>
-      </View>
-    </TouchableOpacity>
+    <Link href={`/nft-list?title=${item.title}`} asChild>
+      <TouchableOpacity style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        width: "100%",
+        paddingVertical: 12,
+        // height: 64
+      }}>
+        <Image source={item.avatar} style={{width: 40, height: 40, marginRight: 8, borderRadius: 50}}/>
+        <View style={{flex: 1, justifyContent: "space-between", flexDirection: "row", gap: 8}}>
+          <ThemedText size='sm'>{item.title}</ThemedText>
+          <ThemedText size='sm'>{item.number}</ThemedText>
+        </View>
+      </TouchableOpacity>
+    </Link>
   )
 }
 

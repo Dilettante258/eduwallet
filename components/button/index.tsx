@@ -41,6 +41,7 @@ const Button = React.forwardRef<TouchableOpacityRef, ThemeProps&TouchableOpacity
   return (
     <TouchableOpacity
       activeOpacity={0.8}
+      disabled={disabled}
       ref={ref}
       style={[
         styles.basic,

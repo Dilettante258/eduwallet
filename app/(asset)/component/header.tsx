@@ -8,11 +8,10 @@ export default function Header({icon, title}: {icon: React.ReactNode, title: str
 }) {
   return (
     <View style={styles.container}>
-      <BackButton style={{...StyleSheet.absoluteFillObject,}}/>
+      <BackButton style={{...StyleSheet.absoluteFillObject}}/>
       <View style={styles.inlineRow}>
-        {/*<Normal.QRCode />*/}
         {icon}
-        <ThemedText type='medium' size='lg'>
+        <ThemedText type='medium' size='lg' numberOfLines={2} style={{maxWidth: "80%"}}>
           {title}
         </ThemedText>
       </View>
@@ -30,12 +29,14 @@ const styles = StyleSheet.create({
     position: "relative",
     justifyContent: "center",
     height: 54,
+    width: "100%",
   },
   inlineRow: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
+    marginHorizontal: "auto"
   },
 
 })

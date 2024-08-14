@@ -7,6 +7,8 @@ import React, {useState} from "react";
 import {Input} from "@/components/input";
 import {Button} from "@/components/button";
 import {Link} from "expo-router";
+import FormItem from "@/components/FormItem";
+import {useForm} from "react-hook-form";
 
 
 const Tab = ({title, icon, onPress}: { title: string, icon: React.ReactNode, onPress: () => void }) => {
@@ -23,6 +25,75 @@ const Tab = ({title, icon, onPress}: { title: string, icon: React.ReactNode, onP
 
 export default function Setting() {
   const [modalVisible, setModalVisible] = useState(false);
+  const [isDirty, setIsDirty] = useState(false)
+  const [nextModal, setNextModal] = useState(false)
+
+  const {
+    control,
+    handleSubmit,
+    formState: {errors, isValid},
+    getValues,
+  } = useForm({
+    mode: 'onTouched',
+    defaultValues: {
+      email: '',
+    }
+  })
+
+  const Modal1 = () => (
+    <View style={{width: '100%'}}>
+      <FormItem
+        required
+        isDirty={isDirty}
+        validMessage="Valid email address"
+        name="email"
+        label="Enter your student email"
+        control={control}
+        errors={errors.email}
+        rules={{
+          required: 'Password required.',
+          pattern: {
+            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(edu|ac|edu\.cn|gov)$/,
+            message: 'Invalid email address'
+          }
+        }}
+        render={({field: {onChange, value, onBlur}}) => (
+          <Input
+            value={value}
+            onChangeText={onChange}
+            placeholder={'Email should end with ‘.edu’'}
+            style={{width: '100%'}}
+            onBlur={() => {
+              setIsDirty(true);
+              return onBlur();
+            }}
+          />
+        )}
+      />
+      <Button size='lg' disabled={!isValid} onPress={() => setNextModal(true)}>Verify</Button>
+    </View>
+  )
+
+  const Modal2 = () => (
+    <>
+      <ThemedText>
+        A verification notice has been sent to your email ({getValues('email')}). Please follow the instruction to
+        verity your email.
+      </ThemedText>
+      <View style={styles.footer}>
+        <Button variant='ghost'
+                onPress={() => setNextModal(false)}
+                style={{width: "47%"}}>
+          Change Email
+        </Button>
+        <Button style={{width: "47%"}}>
+          Resend
+        </Button>
+      </View>
+    </>
+  )
+
+
 
   return (
     <View style={{flex: 1, alignItems: 'center'}}>
@@ -36,17 +107,9 @@ export default function Setting() {
         </View>
 
         <ThemedModal title={'Verify your email'} modalVisible={modalVisible} setModalVisible={setModalVisible}>
-          <View style={{width: '100%', gap: 12}}>
-            <ThemedText>
-              Enter your student email
-            </ThemedText>
-            <Input
-              placeholder={'Email should end with ‘.edu’'}
-              style={{width: '100%'}}
-            />
-          </View>
-          <Button size='lg'>Verify</Button>
+          {nextModal ? <Modal2/> : <Modal1/>}
         </ThemedModal>
+
         <TouchableHighlight
           onPress={() => {
             setModalVisible(true);
@@ -105,5 +168,12 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.dark.bgGray,
     paddingHorizontal: 20,
     paddingVertical: 28,
+  },
+  footer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 16,
   }
 });

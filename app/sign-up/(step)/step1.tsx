@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Pressable, StyleSheet, View} from 'react-native';
 import {Button} from "@/components/button";
 import {ThemedText} from "@/components/ThemedText";
@@ -13,15 +13,15 @@ import {TrueSheet} from "@lodev09/react-native-true-sheet";
 
 const Step1 = () => {
   const [checked, setChecked] = useState(false);
-  const [level, setLevel] = useState(1)
+  const [isDirty1, setIsDirty1] = useState(false)
+  const [isDirty2, setIsDirty2] = useState(false)
+  const [buttonDisable, setButtonDisable] = useState(true)
   const sheet = useRef<TrueSheet>(null)
 
   const {
     control,
     handleSubmit,
-    formState: { errors },
-    watch,
-    getValues
+    formState: {errors, isValid},
   } = useForm({
     mode: 'onTouched',
     defaultValues: {
@@ -31,10 +31,9 @@ const Step1 = () => {
   })
 
   const onSubmit = () => {
+    console.log(control)
     return null
   }
-
-  const watchPassword = watch("password")
 
   const present = async () => {
     await sheet.current?.present()
@@ -43,6 +42,12 @@ const Step1 = () => {
     await sheet.current?.dismiss()
   }
 
+  useEffect(() => {
+    if (checked && isValid)
+      setButtonDisable(false)
+    else
+      setButtonDisable(true)
+  }, [checked, isValid]);
 
   return (
     <FlexView style={{gap: 20, flex: 1}}>
@@ -52,6 +57,8 @@ const Step1 = () => {
         </ThemedText>
         <FormItem
           required
+          isDirty={isDirty1}
+          validMessage="Valid password"
           name="password"
           label="New password"
           control={control}
@@ -63,30 +70,43 @@ const Step1 = () => {
               message: '8+ characters with upper, lower, numbers, symbols required.'
             }
           }}
-          render={({ field: { onChange, value } }) => (
+          render={({field: {onChange, value, onBlur}}) => (
             <SecureInput
               value={value}
               onChangeText={onChange}
+              onBlur={() => {
+                setIsDirty1(true);
+                return onBlur();
+              }}
               placeholder="Enter a password for your wallet"
             />
           )}
         />
         <FormItem
           required
+          isDirty={isDirty2}
+          validMessage="Valid password"
           label="Confirm password"
           control={control}
           name="confirmPassword"
           rules={{
             required: 'Password required.',
-            validate: (value, formValues) => {
-              const { password } = formValues;
-              return password === value || "Passwords should match!";
-          }}}
-          errors={errors.password}
-          render={({ field: { onChange, value } }) => (
+            validate: {
+              conform: (value, formValues) => {
+                const password = formValues["password"];
+                return password === value || "This is a different password";
+              },
+            }
+          }}
+          errors={errors.confirmPassword}
+          render={({field: {onChange, value, onBlur}}) => (
             <SecureInput
               value={value}
               onChangeText={onChange}
+              onBlur={() => {
+                setIsDirty2(true);
+                return onBlur();
+              }}
               placeholder="Enter the password again"
               enterKeyHint="next"
             />
@@ -120,12 +140,10 @@ const Step1 = () => {
                 </Button>
               </View>
             </TrueSheet>
-
           </Checkbox>
-          <Link href="./step2" style={{width: "100%"}} asChild>
+          <Link href="./step2" style={{width: "100%"}} asChild disabled={buttonDisable}>
             <Button size="lg" variant="solid"
-                    // onPress={handleSubmit(onSubmit)}
-                    onPress={onSubmit}>
+                    onPressOut={handleSubmit(onSubmit)}>
               Create
             </Button>
           </Link>

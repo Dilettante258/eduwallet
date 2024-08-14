@@ -31,6 +31,14 @@ const AssetPageStack = ({children}: { children: React.ReactNode }) => (
         title: "Transaction",
         header: () => <Header icon={<Normal.Clock/>} title={"Transaction"}/>
       }}/>
+    <Stack.Screen name="nft-list" options={
+      {
+        title: "NFT-List",
+        header: ({route}) => {
+          // @ts-ignore
+          return <Header icon={null} title={route.params?.title ?? "NFT-List"}/>
+        }
+      }}/>
   </Stack>
 )
 
