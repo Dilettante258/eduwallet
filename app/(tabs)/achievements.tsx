@@ -1,29 +1,55 @@
 import {StyleSheet, View} from 'react-native';
 import {ThemedText} from '@/components/ThemedText';
 import {Normal} from "@/components/svg";
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import {Input} from "@/components/input";
 import SectionList from "@/components/SectionList";
-import Fuse from "fuse.js";
-
-export default function Setting() {
-  const inputRef = useRef(null);
-  const [search, setSearch] = useState('')
 
 
-  // 搜索有问题
-  const fuseOptions = {
-    shouldSort: true,
-    minMatchCharLength: 2,
-    threshold: 0.99,
-    keys: [
-      "data.NTF",
-      "data.course"
-    ]
-  };
+type SearchResult<T> = T[];
 
+interface Searchable<T> {
+  time: string;
+  data: T[];
+}
 
-  const fuse = new Fuse(data, fuseOptions);
+type SearchFields<T> = keyof T;
+
+function search<T extends Record<string, any>>(
+  data: Searchable<T>[],
+  query: string,
+  fields?: SearchFields<T>[]
+): { result: Searchable<T>[], counter: number } {
+  const lowerCaseQuery = query.toLowerCase();
+  const result: Searchable<T>[] = [];
+  let counter = 0;
+  data.forEach((group) => {
+    const list: SearchResult<T> = [];
+    group.data.forEach((item) => {
+      const isMatch = fields
+        ? fields.some((field) =>
+          item[field]?.toString().toLowerCase().includes(lowerCaseQuery)
+        )
+        : Object.values(item).some((value) =>
+          value.toString().toLowerCase().includes(lowerCaseQuery)
+        );
+      if (isMatch) {
+        counter++;
+        list.push(item);
+      }
+    });
+    if (list.length > 0) {
+      group.data = list;
+      result.push(group);
+
+    }
+  });
+  console.log(result)
+  return {result, counter};
+}
+
+export default function Achievements() {
+  const [searchParam, setSearchParam] = useState('')
 
   return (
     <View style={{flex: 1, alignItems: 'center', gap: 20}}>
@@ -34,14 +60,14 @@ export default function Setting() {
       <Input
         placeholder="Search nft"
         icon={<Normal.Search/>}
-        ref={inputRef}
         onChange={e => {
-          setSearch(e.nativeEvent.text)
-          console.log(fuse.search(search))
+          setSearchParam(e.nativeEvent.text);
         }}
       />
+      {searchParam && <ThemedText>{search(data, searchParam).counter} results for <ThemedText
+        type='muted'>“{searchParam}”</ThemedText></ThemedText>}
       <SectionList
-        data={search ? fuse.search(search).sort((a, b) => a.refIndex - b.refIndex).map(item => item.item) : data}/>
+        data={searchParam ? search(data, searchParam).result : data}/>
     </View>
   );
 }

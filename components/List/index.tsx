@@ -1,7 +1,7 @@
 import {Dimensions, Image, Pressable, StyleSheet, TouchableOpacity, View} from "react-native";
 import {ThemedText} from "@/components/ThemedText";
 import {Normal} from "@/components/svg";
-import React, {useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {Colors} from "@/constants/Colors";
 import Animated, {
   interpolateColor,
@@ -22,19 +22,39 @@ const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 
 
+function search<T, K extends keyof T>(items: T[], searchProperties: K[], searchValue: string): T[] {
+  return items.filter(item => searchProperties.some(property => String(item[property]).includes(searchValue)));
+}
+
+
+
+
+
+
 
 export default function List() {
   const [tab, setTab] = useState<'assets' | 'nft'>('assets')
   const [viewAll, setViewAll] = useState<boolean>(false);
   const initialHeight = windowHeight - 520;
   const height = useSharedValue(initialHeight);
-
+  const searchHeight = useSharedValue(0);
   const progress = useSharedValue(1);
+
+
+  const [searchAsset, setSearchAsset] = useState('')
+  const [searchNFT, setSearchNFT] = useState('')
+
+
+  useEffect(() => {
+    searchHeight.value = withDelay(150, withTiming(viewAll ? 80 : 0, {duration: 500}))
+  }, [viewAll]);
 
 
   const handlePress = () => {
     setViewAll(!viewAll);
     height.value = viewAll ?  initialHeight : windowHeight - 40;
+    setSearchNFT('');
+    setSearchNFT('');
   };
 
   const animatedStyles = useAnimatedStyle(() => (
@@ -44,13 +64,6 @@ export default function List() {
     }
   ));
 
-  const searchStyles = useAnimatedStyle(() => (
-    {
-      overflow: 'hidden',
-      height: withDelay(150, withTiming(viewAll ? 60 : 0)),
-      // height: 150
-    }
-  ));
 
   const button1Styles = useAnimatedStyle(() => {
     return (
@@ -102,23 +115,37 @@ export default function List() {
     )
   });
 
-  const Search = () => {
-    return (
-      <Animated.View style={[searchStyles]}>
-        <Input
-          placeholder='Search asset'
-          icon={<Normal.Search/>}
-        />
-      </Animated.View>
-    )
+
+  type state<T> = {
+    value: T,
+    setValue: React.Dispatch<React.SetStateAction<T>>,
   }
 
-  const Footer = () => {
+  const Search = useMemo(() => ({value, setValue, counter}: state<string> & { counter: number }) => {
+    return (
+      <>
+        <Animated.View style={{overflow: 'hidden', maxHeight: searchHeight, width: windowWidth - 72}}>
+          <Input
+            placeholder='Search asset'
+            icon={<Normal.Search/>}
+            value={value}
+            onChange={e => {
+              setValue(e.nativeEvent.text);
+            }}
+          />
+          {value && <ThemedText style={{textAlign: 'center'}}>{counter} results for <ThemedText
+            type='muted'>“{value}”</ThemedText></ThemedText>}
+        </Animated.View>
+      </>
+    )
+  }, [searchHeight])
+
+  const Footer = useMemo(() => () => {
     return (
       <View style={{
         marginHorizontal: "auto",
         overflow: 'hidden',
-        paddingTop: 10,
+        paddingTop: 20,
         height: viewAll ? 150 : 0,
       }}>
         <ThemedText type='muted'>
@@ -126,7 +153,7 @@ export default function List() {
         </ThemedText>
       </View>
     )
-  }
+  }, [])
 
 
   const AssetPressed = () => {
@@ -165,29 +192,33 @@ export default function List() {
         </Pressable>
       </View>
       {tab == 'assets' ? (
-        <Animated.FlatList data={assetsList} renderItem={AssetItem}
-                           ListHeaderComponent={Search}
+        <Animated.FlatList data={searchAsset ? search(assetsList, ['name', 'code'], searchAsset) : assetsList}
+                           renderItem={AssetItem}
+                           ListHeaderComponent={<Search setValue={setSearchAsset} value={searchAsset}
+                                                        counter={search(assetsList, ['name', 'code'], searchAsset).length}/>}
                            ListFooterComponent={assetsList.length > 0 ? Footer : undefined}
-                           ListEmptyComponent={Empty}
+                           ListEmptyComponent={assetsList.length === 0 ? Empty : undefined}
                            initialNumToRender={5}
                            ItemSeparatorComponent={Separator}
                            entering={SlideInLeft} exiting={SlideOutLeft}
+                           style={{flex: 1}}
         />
       ) : (
-        <Animated.View entering={SlideInRight} exiting={SlideOutRight}>
-          <Animated.FlatList data={NFTList} renderItem={NFTItem}
-                             ListHeaderComponent={Search}
-                             ListFooterComponent={NFTList.length > 0 ? Footer : undefined}
-                             ListEmptyComponent={Empty}
-                             initialNumToRender={5}
-                             ItemSeparatorComponent={Separator}
-            //
-          />
+        <>
+          <Animated.View entering={SlideInRight} exiting={SlideOutRight}>
+            <Animated.FlatList data={searchNFT ? search(NFTList, ['title'], searchNFT) : NFTList}
+                               renderItem={NFTItem}
+                               ListHeaderComponent={<Search setValue={setSearchNFT} value={searchNFT}
+                                                            counter={search(NFTList, ['title'], searchNFT).length}/>}
+                               ListFooterComponent={NFTList.length > 3 ? Footer : undefined}
+                               ListEmptyComponent={NFTList.length === 0 ? Empty : undefined}
+                               initialNumToRender={5}
+                               ItemSeparatorComponent={Separator}
+            />
+          </Animated.View>
 
-        </Animated.View>
-
-      )
-      }
+        </>
+      )}
     </Animated.View>
   );
 }

@@ -57,7 +57,6 @@ const Step2 = () => {
               CLICK HERE TO REVEAL SECRET WORDS
             </ThemedText>
           </BlurView>
-
         </Animated.View>
       </Pressable>
 
