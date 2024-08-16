@@ -26,12 +26,6 @@ function search<T, K extends keyof T>(items: T[], searchProperties: K[], searchV
   return items.filter(item => searchProperties.some(property => String(item[property]).includes(searchValue)));
 }
 
-
-
-
-
-
-
 export default function List() {
   const [tab, setTab] = useState<'assets' | 'nft'>('assets')
   const [viewAll, setViewAll] = useState<boolean>(false);
