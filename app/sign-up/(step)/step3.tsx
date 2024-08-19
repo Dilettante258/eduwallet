@@ -1,18 +1,41 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, Pressable, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Button} from "@/components/button";
 import {ThemedText} from "@/components/ThemedText";
 import {Link} from 'expo-router';
 import {FlexView} from "@/components/ThemedView";
 import {Colors} from "@/constants/Colors";
+import * as SecureStore from "expo-secure-store";
+import {Wallet} from "ethers";
 
+export const CreatWallet = async (phase: string) => {
+  const wallet = Wallet.fromPhrase(phase);
+  await SecureStore.setItemAsync('phase', '');
+  await SecureStore.setItemAsync('address', wallet.address);
+  await SecureStore.setItemAsync('privateKey', wallet.privateKey);
+}
 
 const Step3 = () => {
   const [selected, setSelected] = useState<Array<string>>([])
   const [checked, setChecked] = useState(false);
-  const [level, setLevel] = useState(2)
+  const [phase, setPhase] = useState('')
 
-  const secret:string[] = ['burger','buyer', 'detail','fire', 'fossil', 'hold', 'rain', 'search', 'slight', 'spray', 'tube', 'wire'];
+  useEffect(() => {
+    SecureStore.getItemAsync('phase').then(value => {
+      if (value) {
+        setPhase(value)
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    if (selected.join(' ') === phase && selected.length == 12) {
+      setChecked(true)
+    } else {
+      setChecked(false)
+    }
+  }, [selected]);
+
 
   const Item = ({ item }: { item: string}) => {
     return (
@@ -54,16 +77,17 @@ const Step3 = () => {
       </View>
       <View style={styles.buttonContainer}>
         <FlatList
-          data={secret}
+          data={phase.split(' ')}
           numColumns={3}
           renderItem={Item}
           columnWrapperStyle={styles.columnWrapper}
-          // keyExtractor={(item) => item}
         />
       </View>
       <View style={{width: "100%", marginTop: "auto"}}>
-        <Link href="/sign-up/complete" style={{width: "100%"}} asChild>
-          <Button size="lg" variant="solid">
+        <Link href="/sign-up/complete" style={{width: "100%"}} asChild disabled={!checked}>
+          <Button size="lg" variant="solid"
+                  onPressOut={() => CreatWallet(phase)}
+          >
             Confirm
           </Button>
         </Link>

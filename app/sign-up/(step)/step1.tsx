@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {Pressable, StyleSheet, View} from 'react-native';
 import {Button} from "@/components/button";
 import {ThemedText} from "@/components/ThemedText";
-import {Link} from 'expo-router';
+import {Link, router} from 'expo-router';
 import {FlexView} from "@/components/ThemedView";
 import {SecureInput} from "@/components/input";
 import Checkbox from "@/components/checkbox";
@@ -10,6 +10,7 @@ import FormItem from "@/components/FormItem";
 import {useForm} from "react-hook-form";
 import {Colors} from "@/constants/Colors";
 import {TrueSheet} from "@lodev09/react-native-true-sheet";
+import * as SecureStore from 'expo-secure-store';
 
 const Step1 = () => {
   const [checked, setChecked] = useState(false);
@@ -22,6 +23,7 @@ const Step1 = () => {
     control,
     handleSubmit,
     formState: {errors, isValid},
+    getValues,
   } = useForm({
     mode: 'onTouched',
     defaultValues: {
@@ -30,9 +32,9 @@ const Step1 = () => {
     }
   })
 
-  const onSubmit = () => {
-    console.log(control)
-    return null
+  const onSubmit = async () => {
+    await SecureStore.setItemAsync('password', getValues('password'));
+    router.replace('./step2');
   }
 
   const present = async () => {
@@ -141,9 +143,10 @@ const Step1 = () => {
               </View>
             </TrueSheet>
           </Checkbox>
-          <Link href="./step2" style={{width: "100%"}} asChild disabled={buttonDisable}>
+          <Link href="./step2" style={{width: "100%"}} asChild disabled={false}>
             <Button size="lg" variant="solid"
-                    onPressOut={handleSubmit(onSubmit)}>
+                    onPressOut={handleSubmit(onSubmit)}
+            >
               Create
             </Button>
           </Link>

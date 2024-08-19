@@ -10,7 +10,7 @@ export function sanitizeSeedPhrase(string: string): string {
     .join(' ');
 }
 
-const isValidSeedPhrase = (seedPhrase: any) => {
+export const isValidSeedPhrase = (seedPhrase: any) => {
   const sanitizedSeedPhrase = sanitizeSeedPhrase(seedPhrase);
   return sanitizedSeedPhrase.split(' ').length >= 12 && Mnemonic.isValidMnemonic(sanitizedSeedPhrase);
 };

@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Pressable, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Button} from "@/components/button";
 import {ThemedText} from "@/components/ThemedText";
@@ -9,15 +9,23 @@ import {Colors} from "@/constants/Colors";
 import {TrueSheet} from "@lodev09/react-native-true-sheet";
 import SignUpHeader from "@/app/sign-up/component/Header";
 import * as Clipboard from 'expo-clipboard';
+import {CreatWallet} from "@/app/sign-up/(step)/step3";
+import {isValidSeedPhrase, sanitizeSeedPhrase} from "@/utils/formatters";
 
 const ImportPage = () => {
   const [checked, setChecked] = useState(false);
-  const [key, setKey] = useState('')
+  const [isValid, setIsValid] = useState(false)
+  const [phase, setPhase] = useState('')
   const sheet = useRef<TrueSheet>(null)
 
-  const onSubmit = () => {
-    return null
-  }
+
+  useEffect(() => {
+    if (isValidSeedPhrase(phase) && checked) {
+      setIsValid(true)
+    } else {
+      setIsValid(false)
+    }
+  }, [phase, checked]);
 
   const present = async () => {
     await sheet.current?.present()
@@ -28,7 +36,7 @@ const ImportPage = () => {
 
   const fetchCopiedText = async () => {
     const text = await Clipboard.getStringAsync();
-    setKey(text);
+    setPhase(sanitizeSeedPhrase(text));
   };
 
 
@@ -47,13 +55,12 @@ const ImportPage = () => {
                             onPress={fetchCopiedText}
           >
             {
-              key.split(' ').map((item, index) => (
+              phase.split(' ').map((item, index) => (
                 <ThemedText key={index} size='sm'>
                   {item}
                 </ThemedText>
               ))
             }
-
           </TouchableOpacity>
         </View>
 
@@ -94,10 +101,10 @@ const ImportPage = () => {
             </TrueSheet>
 
           </Checkbox>
-          <Link href="./complete" style={{width: "100%"}} asChild>
+          <Link href="./complete" style={{width: "100%"}} asChild disabled={!isValid}>
             <Button size="lg" variant="solid"
-              // onPress={handleSubmit(onSubmit)}
-                    onPress={onSubmit}>
+                    onPressOut={() => CreatWallet(phase)}
+            >
               Import
             </Button>
           </Link>
