@@ -1,39 +1,27 @@
 import {DarkTheme, ThemeProvider} from '@react-navigation/native';
-import {useFonts} from 'expo-font';
 import {Stack} from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import {useEffect} from 'react';
+import {useState} from 'react';
 import 'react-native-reanimated';
 
 import {useColorScheme} from '@/hooks/useColorScheme';
-import Loading from "@/app/loading";
+import useProtectedRoute from "@/utils/auth.hook";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const [delay, setDelay] = useState(false)
+  const [isSignedIn, setIsSignedIn] = useState(false);
 
-  const [loaded, error] = useFonts({
-    PoppinsRegular: require('../assets/fonts/Poppins-Regular.ttf'),
-    PoppinsMedium: require('../assets/fonts/Poppins-Medium.ttf'),
-    PoppinsBold: require('../assets/fonts/Poppins-Bold.ttf'),
-  });
+  useProtectedRoute();
 
-  useEffect(() => {
-    if (loaded || error) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded, error]);
-
-  if (!loaded && !error) {
-    return <Loading/>
-  }
 
   return (
     // colorScheme === 'dark' ? DarkTheme : DefaultTheme
     <ThemeProvider value={DarkTheme}>
-      <Stack initialRouteName="(tabs)" screenOptions={{}}>
+      <Stack initialRouteName={isSignedIn ? "(tabs)" : "sign-up/(step)"} screenOptions={{}}>
         <Stack.Screen name="playground1" options={{headerShown: false}}/>
         <Stack.Screen name="(tabs)" options={{
           headerShown: false,
@@ -46,6 +34,8 @@ export default function RootLayout() {
             headerShown: false,
             animation: 'fade_from_bottom',
           }}/>
+        <Stack.Screen name="(asset)" options={{headerShown: false, animation: 'slide_from_right',}}/>
+        <Stack.Screen name="+not-found" options={{headerShown: false}}/>
         <Stack.Screen name="sign-up/(step)" options={
           {
             title: "Sign Up | Step 1",
@@ -63,8 +53,6 @@ export default function RootLayout() {
                         animation: 'slide_from_right',
                         headerShown: false
                       }}/>
-        <Stack.Screen name="(asset)" options={{headerShown: false, animation: 'slide_from_right',}}/>
-        <Stack.Screen name="+not-found" options={{headerShown: false}}/>
       </Stack>
     </ThemeProvider>
   );

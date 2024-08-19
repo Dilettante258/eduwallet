@@ -77,7 +77,7 @@ const Step3 = () => {
       </View>
       <View style={styles.buttonContainer}>
         <FlatList
-          data={phase.split(' ')}
+          data={phase.split(' ').sort(() => Math.random() - 0.5)}
           numColumns={3}
           renderItem={Item}
           columnWrapperStyle={styles.columnWrapper}

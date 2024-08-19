@@ -4,15 +4,18 @@
   },
   "build": {
     "development": {
-      "bun": "1.1.13",
+      "bun": "1.1.21",
       "developmentClient": true,
       "distribution": "internal"
     },
     "preview": {
-      "bun": "1.1.13",
+      "bun": "1.1.21",
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "bun": "1.1.21",
+      "distribution": "internal"
+    }
   },
   "submit": {
     "production": {}

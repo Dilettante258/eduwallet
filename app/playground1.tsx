@@ -1,20 +1,14 @@
-import {Image, StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
-import ParallaxScrollView from '@/components/ParallaxScrollView';
+
 import {ThemedText} from '@/components/ThemedText';
 import {ThemedView} from '@/components/ThemedView';
 import {Link} from "expo-router";
+import React from "react";
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{light: '#A1CEDC', dark: '#1D3D47'}}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
+    <View>
       <ThemedText type='bold' size='lg'>Test PlayGround !!!</ThemedText>
       <ThemedView style={styles.titleContainer}>
         <ThemedText>Welcome!</ThemedText>
@@ -24,7 +18,7 @@ export default function HomeScreen() {
       <Link href="/asset"><ThemedText>Asset</ThemedText></Link>
       <Link href="/playground1"><ThemedText>PlayGround1</ThemedText></Link>
       <Link href="/playground2"><ThemedText>PlayGround2</ThemedText></Link>
-    </ParallaxScrollView>
+    </View>
   );
 }
 
