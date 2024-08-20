@@ -1,13 +1,17 @@
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import React from "react";
+import React, {useLayoutEffect} from "react";
 import QRCode from "react-qr-code";
 import {Colors} from "@/constants/Colors";
 import {ThemedText} from "@/components/ThemedText";
 import {Brand, Normal} from "@/components/svg";
 import * as Clipboard from 'expo-clipboard';
+import * as SecureStore from 'expo-secure-store';
 
 const ReceiveInvalid = () => {
-  const [address, setAddress] = React.useState('0x3E87B769fEAbf2F78bB74F3e4f791cFC1397aa1A');
+  const [address, setAddress] = React.useState('');
+  useLayoutEffect(() => {
+    setAddress(SecureStore.getItem('address') || 'null');
+  }, []);
 
   const copyToClipboard = async () => {
     await Clipboard.setStringAsync(address);
@@ -27,10 +31,10 @@ const ReceiveInvalid = () => {
       </View>
       <View style={styles.addressContainer}>
         <ThemedText type='muted' size='sm'>Your Wallet Address</ThemedText>
-        <ThemedText>0x3E87B769fEAbf2F78bB74F3e4f791cFC1397aa1A</ThemedText>
+        <ThemedText>{address}</ThemedText>
         <TouchableOpacity style={styles.inlineRow} activeOpacity={0.8}
                           hitSlop={20}
-
+                          onPress={copyToClipboard}
         >
           <ThemedText type='muted'>
             Copy
@@ -82,6 +86,5 @@ const styles = StyleSheet.create({
     textAlign: "right",
   }
 })
-
 
 export default ReceiveInvalid;

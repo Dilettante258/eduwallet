@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import {Image, Pressable, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {ThemedText} from "@/components/ThemedText";
 import {Normal} from "@/components/svg";
@@ -6,9 +6,21 @@ import {Colors} from "@/constants/Colors";
 import {Link} from "expo-router";
 import List from "@/components/List";
 import Animated, {FlipInEasyX, FlipOutEasyX} from "react-native-reanimated";
+import {ethers} from "ethers";
+import * as SecureStore from "expo-secure-store";
 
 
 const AssetPage = () => {
+  const [balance, setBalance] = useState('0')
+
+  const provider = new ethers.InfuraProvider('sepolia');
+
+  useLayoutEffect(() => {
+    const address = SecureStore.getItem('address') as string;
+    provider.getBalance(address)
+      .then(ethers.formatEther)
+      .then(setBalance)
+  }, []);
 
 
   return (
@@ -33,7 +45,9 @@ const AssetPage = () => {
         </View>
       </View>
       <Animated.View style={styles.balance} entering={FlipInEasyX} exiting={FlipOutEasyX}>
-        <ThemedText style={{fontSize: 40, lineHeight: 60}} type="bold">$0</ThemedText>
+        <ThemedText style={{fontSize: 40, lineHeight: 60}} type="bold"
+                    numberOfLines={1} ellipsizeMode='tail'
+        >${balance}</ThemedText>
         <ThemedText type="muted">Your Balance</ThemedText>
         <View style={{
           display: "flex",

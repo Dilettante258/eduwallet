@@ -7,7 +7,6 @@ import {Input} from "@/components/input";
 import {Button} from "@/components/button";
 
 const Request = () => {
-
   return (
     <View style={{gap: 20, flex: 1}}>
       <View style={{gap: 12, height: 109}}>

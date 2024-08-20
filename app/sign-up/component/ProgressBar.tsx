@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import Animated, {useAnimatedStyle, useSharedValue, withSpring} from 'react-native-reanimated';
+import Animated, {useAnimatedStyle, useSharedValue, withSpring, withTiming} from 'react-native-reanimated';
 import {Colors} from "@/constants/Colors";
 import {ThemedText} from "@/components/ThemedText";
 
@@ -32,7 +32,7 @@ export const ProgressBar = (
 
   if (level === 1) width.value = withSpring(78, springConfig);
   if (level === 2) width.value = withSpring(246, springConfig);
-  if (level === 3) width.value = withSpring(330, springConfig);
+  if (level === 3) width.value = withTiming(330, {duration: 500})
 
   return (
     <View style={styles.container}>

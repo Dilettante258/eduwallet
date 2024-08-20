@@ -1,9 +1,13 @@
-import {useLayoutEffect, useMemo, useRef} from 'react';
-
-import {SplashScreen, useRootNavigationState, useRouter, useSegments,} from 'expo-router';
+import {useLayoutEffect, useMemo, useRef, useState} from 'react';
+import * as SplashScreen from 'expo-splash-screen';
+import {useRootNavigationState, useRouter, useSegments} from 'expo-router';
 import {useFonts} from "expo-font";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const useProtectedRoute = () => {
+  const [isAuthentificated, setIsAuthentificated] = useState(false)
+
+
   const segments = useSegments();
   const rootNavigationState = useRootNavigationState();
   const router = useRouter();
@@ -12,7 +16,6 @@ const useProtectedRoute = () => {
     return rootNavigationState?.key;
   }, [rootNavigationState]);
 
-  let isAuthentificated = false;
 
   const [loaded, error] = useFonts({
     PoppinsRegular: require('../assets/fonts/Poppins-Regular.ttf'),
@@ -21,13 +24,17 @@ const useProtectedRoute = () => {
   });
 
   useLayoutEffect(() => {
+    AsyncStorage.getItem('isAuthentificated').then(value => {
+      return value === 'true';
+    }).then(setIsAuthentificated);
+
     if (!navigationKey) {
       return;
     }
 
     if (loaded || error) {
-      SplashScreen.hideAsync();
-      // setTimeout(SplashScreen.hideAsync, 5000);
+      // SplashScreen.hideAsync();
+      setTimeout(SplashScreen.hideAsync, 500);
     }
 
     if (

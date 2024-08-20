@@ -2,28 +2,35 @@ import React, {useEffect, useState} from 'react';
 import {FlatList, Pressable, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Button} from "@/components/button";
 import {ThemedText} from "@/components/ThemedText";
-import {Link} from 'expo-router';
+import {router} from 'expo-router';
 import {FlexView} from "@/components/ThemedView";
 import {Colors} from "@/constants/Colors";
 import * as SecureStore from "expo-secure-store";
 import {Wallet} from "ethers";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import LoadingIndicator from "@/app/sign-up/component/loadingIndicator";
 
 export const CreatWallet = async (phase: string) => {
   const wallet = Wallet.fromPhrase(phase);
   await SecureStore.setItemAsync('phase', '');
   await SecureStore.setItemAsync('address', wallet.address);
   await SecureStore.setItemAsync('privateKey', wallet.privateKey);
+  await AsyncStorage.setItem('isAuthentificated', 'true');
+  return;
 }
 
 const Step3 = () => {
+  const [modalVisible, setModalVisible] = useState(false)
   const [selected, setSelected] = useState<Array<string>>([])
   const [checked, setChecked] = useState(false);
+  const [wordList, setWordList] = useState<string[]>([])
   const [phase, setPhase] = useState('')
 
   useEffect(() => {
     SecureStore.getItemAsync('phase').then(value => {
       if (value) {
         setPhase(value)
+        setWordList(value.split(' ').sort(() => Math.random() - 0.5))
       }
     });
   }, []);
@@ -77,21 +84,26 @@ const Step3 = () => {
       </View>
       <View style={styles.buttonContainer}>
         <FlatList
-          data={phase.split(' ').sort(() => Math.random() - 0.5)}
+          data={wordList}
           numColumns={3}
           renderItem={Item}
           columnWrapperStyle={styles.columnWrapper}
         />
       </View>
       <View style={{width: "100%", marginTop: "auto"}}>
-        <Link href="/sign-up/complete" style={{width: "100%"}} asChild disabled={!checked}>
-          <Button size="lg" variant="solid"
-                  onPressOut={() => CreatWallet(phase)}
-          >
-            Confirm
-          </Button>
-        </Link>
+        <Button size="lg" variant="solid"
+                disabled={!checked}
+                onPressOut={async () => {
+                  setModalVisible(true);
+                  await CreatWallet(phase);
+                  setTimeout(() => setModalVisible(false), 3000)
+                  router.push("/sign-up/complete")
+                }}
+        >
+          Confirm
+        </Button>
       </View>
+      <LoadingIndicator modalVisible={modalVisible}/>
     </FlexView>
   );
 }

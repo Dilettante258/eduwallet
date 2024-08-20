@@ -124,6 +124,9 @@ export default function Setting() {
 
 
       </View>
+      <Link href='/playground1'>
+        <ThemedText type="link" size='lg'>Playground!!!</ThemedText>
+      </Link>
       <View style={styles.settingContainer}>
         <View style={[styles.inlineRow, {gap: 10, marginHorizontal: 'auto'}]}>
           <Normal.Settings/>
@@ -133,9 +136,6 @@ export default function Setting() {
         <Tab title='Wallet Instructions' icon={<Normal.Wallet/>} onPress={() => null}/>
         <Tab title='About Us' icon={<Normal.Issue/>} onPress={() => null}/>
       </View>
-      <Link href='/playground1' style={{marginTop: 20}}>
-        <ThemedText type="link" size='lg'>Playground!!!</ThemedText>
-      </Link>
     </View>
   );
 }
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   settingContainer: {
-    marginTop: "15%",
+    marginTop: "12%",
     width: "100%",
     gap: 20,
   },

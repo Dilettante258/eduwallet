@@ -11,12 +11,15 @@ import SignUpHeader from "@/app/sign-up/component/Header";
 import * as Clipboard from 'expo-clipboard';
 import {CreatWallet} from "@/app/sign-up/(step)/step3";
 import {isValidSeedPhrase, sanitizeSeedPhrase} from "@/utils/formatters";
+import LoadingIndicator from "@/app/sign-up/component/loadingIndicator";
 
 const ImportPage = () => {
   const [checked, setChecked] = useState(false);
   const [isValid, setIsValid] = useState(false)
   const [phase, setPhase] = useState('')
   const sheet = useRef<TrueSheet>(null)
+  const [modalVisible, setModalVisible] = useState(false)
+
 
 
   useEffect(() => {
@@ -103,13 +106,18 @@ const ImportPage = () => {
           </Checkbox>
           <Link href="./complete" style={{width: "100%"}} asChild disabled={!isValid}>
             <Button size="lg" variant="solid"
-                    onPressOut={() => CreatWallet(phase)}
+                    onPressOut={async () => {
+                      setModalVisible(true);
+                      await CreatWallet(phase);
+                      setModalVisible(false);
+                    }}
             >
               Import
             </Button>
           </Link>
         </View>
       </View>
+      <LoadingIndicator modalVisible={modalVisible}/>
     </FlexView>
   );
 }

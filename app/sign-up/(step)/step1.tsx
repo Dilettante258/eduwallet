@@ -143,7 +143,7 @@ const Step1 = () => {
               </View>
             </TrueSheet>
           </Checkbox>
-          <Link href="./step2" style={{width: "100%"}} asChild disabled={false}>
+          <Link href="./step2" style={{width: "100%"}} asChild disabled={buttonDisable}>
             <Button size="lg" variant="solid"
                     onPressOut={handleSubmit(onSubmit)}
             >

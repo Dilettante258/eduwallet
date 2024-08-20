@@ -7,8 +7,6 @@ import {FlexView} from "@/components/ThemedView";
 import Secret from "@/app/sign-up/component/secret";
 
 const Step2 = () => {
-
-
   return (
     <FlexView style={{flex: 1, gap: 20}}>
       <View style={styles.formContainer}>

@@ -17,7 +17,6 @@ export default function RootLayout() {
 
   useProtectedRoute();
 
-
   return (
     // colorScheme === 'dark' ? DarkTheme : DefaultTheme
     <ThemeProvider value={DarkTheme}>
